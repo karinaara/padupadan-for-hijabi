@@ -34,11 +34,8 @@ Finding cohesive color combinations for hijabi outfits—balancing the **Hijab/S
 
 ## 📸 Preview
 
-*(Replace with your actual screenshot or demo GIF)*
+<img width="1919" height="865" alt="image" src="https://github.com/user-attachments/assets/767e2f28-7254-45ea-89ee-1388c3a2d566" />
 
-<p align="center">
-  <img src="https://ootd-match-mix-lab.netlify.app/favicon.ico" alt="PaduPadan Preview" width="120">
-</p>
 
 ---
 
