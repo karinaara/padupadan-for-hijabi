@@ -1,0 +1,1643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>PaduPadan for Hijabi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  // palet "girly calm": rose berdebu + netral kemerahan yang hangat
+  tailwind.config = { theme: { extend: { colors: {
+    rose: { 50: "#fdf3f5", 100: "#fae5ea", 200: "#f4cdd7", 300: "#ebaabb", 400: "#e0869f", 500: "#d4698a", 600: "#bd5575" },
+    stone: { 50: "#fbf7f7", 100: "#f5eeef", 200: "#ebe0e2", 300: "#dccdd0", 400: "#b8a6ab", 500: "#8e7b82", 600: "#6d5c63", 700: "#54444b", 800: "#43353c", 900: "#382c33" },
+  } } } };
+</script>
+<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+<script crossorigin src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.24.7/babel.min.js"></script>
+<script>
+  // terapkan tema sebelum render agar tidak berkedip
+  (function () {
+    try {
+      var t = localStorage.getItem("ootd-match-mix-lab:theme") || "auto";
+      var dark = t === "dark" || (t === "auto" && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+      if (dark) document.documentElement.classList.add("dark");
+      var l = localStorage.getItem("ootd-match-mix-lab:lang");
+      document.documentElement.lang = l === "id" ? "id" : "en";
+    } catch (e) {}
+  })();
+</script>
+<style>
+  html, body { background: #fdf6f5; }
+  body { background: linear-gradient(180deg, #fdf6f5 0%, #faf1f6 100%) fixed; font-family: 'Nunito', ui-sans-serif, system-ui, 'Segoe UI', sans-serif; }
+  .font-display { font-family: 'Playfair Display', Georgia, serif; }
+  html .shadow-sm { --tw-shadow: 0 2px 14px rgba(190,120,145,.12); --tw-shadow-colored: 0 2px 14px var(--tw-shadow-color); }
+  html .shadow, html .shadow-md { --tw-shadow: 0 4px 16px rgba(190,120,145,.18); --tw-shadow-colored: 0 4px 16px var(--tw-shadow-color); }
+  html .shadow-2xl { --tw-shadow: 0 18px 50px rgba(120,70,95,.28); --tw-shadow-colored: 0 18px 50px var(--tw-shadow-color); }
+  html.dark, html.dark body { background: #1a1418; color-scheme: dark; }
+  .dark .bg-white { background-color: #251d22; }
+  .dark .bg-white\/90 { background-color: rgba(52,42,49,.92); }
+  .dark .bg-stone-50 { background-color: #2d242a; }
+  .dark .bg-stone-100 { background-color: #352b32; }
+  .dark .bg-stone-200\/70 { background-color: rgba(68,55,63,.7); }
+  .dark .bg-\[\#fcf5f5\]\/90 { background-color: rgba(26,20,24,.9); }
+  .dark .bg-\[\#f7e8ec\] { background-color: #eadbe0; }
+  .dark .hover\:bg-stone-200:hover { background-color: #3f343b; }
+  .dark .hover\:bg-stone-50:hover { background-color: #352b32; }
+  .dark .text-stone-900, .dark .text-stone-800 { color: #f8eef2; }
+  .dark .text-stone-700 { color: #ecdfe5; }
+  .dark .text-stone-600 { color: #dccdd4; }
+  .dark .text-stone-500 { color: #b3a0a9; }
+  .dark .text-stone-400 { color: #96838c; }
+  .dark .ring-stone-100, .dark .ring-stone-200 { --tw-ring-color: #43363e; }
+  .dark .ring-stone-300 { --tw-ring-color: #54454e; }
+  .dark .border-stone-100, .dark .border-stone-300 { border-color: #43363e; }
+  .dark .bg-stone-900, .dark .bg-stone-800 { background-color: #ecdfe5 !important; color: #2f242b !important; }
+  .dark .bg-rose-50 { background-color: rgba(212,105,138,.16); }
+  .dark .text-rose-600 { color: #f19ab3; }
+  .dark .ring-rose-100 { --tw-ring-color: rgba(212,105,138,.28); }
+  .dark .bg-red-50 { background-color: rgba(239,68,68,.14); }
+  .dark .text-red-600, .dark .text-red-500 { color: #f87171; }
+  .dark .bg-green-50 { background-color: rgba(34,197,94,.14); }
+  .dark .text-green-700, .dark .text-green-600 { color: #4ade80; }
+  .dark .bg-amber-50 { background-color: rgba(245,158,11,.14); }
+  .dark .text-amber-900 { color: #fcd34d; }
+  .dark .ring-amber-200 { --tw-ring-color: rgba(245,158,11,.3); }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  .fade-fill { transition: fill .5s ease; }
+  .fade-bg { transition: background-color .5s ease, color .5s ease; }
+  @keyframes slideUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+  .slide-up { animation: slideUp .35s ease both; }
+  @keyframes spinOnce { to { transform: rotate(360deg); } }
+  .spin-once { animation: spinOnce .6s ease; }
+  input[type="color"] { -webkit-appearance: none; appearance: none; border: 0; padding: 0; background: none; cursor: pointer; }
+  input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+  input[type="color"]::-webkit-color-swatch { border: 0; border-radius: 9999px; }
+  input[type="color"]::-moz-color-swatch { border: 0; border-radius: 9999px; }
+  .layer { cursor: pointer; transition: filter .2s; }
+  button:focus-visible, [role="button"]:focus-visible, [role="checkbox"]:focus-visible, label:focus-within { outline: 2px solid #d4698a; outline-offset: 2px; }
+  input:focus-visible { outline: none; }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+  .layer:hover { filter: brightness(.95); }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+const { useState, useEffect, useMemo, useRef } = React;
+
+/* =========================================================
+   0. i18n: EN (default) & ID. Kunci = teks Inggris, kamus ID di bawah
+   ========================================================= */
+const LANG_KEY = "ootd-match-mix-lab:lang";
+let LANG = (() => { try { const v = localStorage.getItem(LANG_KEY); if (v === "en" || v === "id") return v; } catch {} return "en"; })();
+const setLangGlobal = (l) => { LANG = l; try { localStorage.setItem(LANG_KEY, l); } catch {} document.documentElement.lang = l; };
+const tr = (en, vars) => {
+  let t = LANG === "id" && ID[en] !== undefined ? ID[en] : en;
+  if (vars) t = t.replace(/\{(\w+)\}/g, (_, k) => (vars[k] !== undefined ? vars[k] : ""));
+  return t;
+};
+// nilai yang tersimpan di database tetap kanonik (Indonesia); tampilannya diterjemahkan
+const VIBE_EN = { "Warna Tabrakan": "Color Clash", "Masih Eksperimen": "Still Experimenting", "Monochrome Casual": "Monochrome Casual", "Cewek Mamba": "Mamba Mood",
+  "Tone-on-Tone": "Tone-on-Tone", "Earth Tone Warm": "Warm Earth Tone", "Soft Pastel": "Soft Pastel", "Denim Day": "Denim Day", "Pop of Color": "Pop of Color", "Casual Mix": "Casual Mix" };
+const vibeText = (v) => (VIBE_EN[v] ? tr(VIBE_EN[v]) : v);
+const TAG_EN = { "Nongkrong": "Hangout", "Kerja/Kuliah": "Work/Class", "Kondangan": "Formal event", "Casual": "Casual" };
+const tagLabel = (t) => (TAG_EN[t] ? tr(TAG_EN[t]) : t);
+const filterLabel = (f) => (f === "Semua" ? tr("All") : f === "Tanpa tag" ? tr("Untagged") : tagLabel(f));
+const groupLabel = (g) => tr({ neutral: "Neutral", pastel: "Pastel", earth: "Earth / Muted", bold: "Bold / Vibrant" }[g]);
+
+const ID = {
+  // slot
+  "Hijab / Scarf": "Kerudung / Hijab", "Hijab": "Kerudung", "hijab": "kerudung",
+  "Top / Shirt": "Baju / Atasan", "Top": "Baju", "top": "baju",
+  "Bottom / Pants": "Celana / Bawahan", "Pants": "Celana", "pants": "celana",
+  // kategori warna, tag, filter, urutan, vibe
+  "Neutral": "Netral", "Pastel": "Pastel", "Earth / Muted": "Earth / Redup", "Bold / Vibrant": "Bold / Mencolok", "Custom": "Kustom",
+  "Hangout": "Nongkrong", "Work/Class": "Kerja/Kuliah", "Formal event": "Kondangan", "Casual": "Casual",
+  "All": "Semua", "Untagged": "Tanpa tag",
+  "Newest": "Terbaru", "Oldest": "Terlama", "Highest score": "Skor tertinggi", "Lowest score": "Skor terendah",
+  "Color Clash": "Warna Tabrakan", "Still Experimenting": "Masih Eksperimen", "Mamba Mood": "Cewek Mamba", "Warm Earth Tone": "Earth Tone Warm",
+  // skor & saran
+  "Great match": "Serasi banget", "Pretty good": "Lumayan oke", "Needs work": "Perlu diperbaiki",
+  "Stacked loud colors: {names} are both very saturated. Lower one's saturation or swap it for a neutral.":
+    "Warna pekat bertumpuk: {names} sama-sama sangat jenuh. Turunkan saturasi salah satunya atau ganti ke netral.",
+  "{a} and {b} clash on the color wheel with no neutral to balance them. Add black, cream, or denim.":
+    "{a} dan {b} bertabrakan di roda warna tanpa netral penyeimbang. Tambahkan hitam, cream, atau denim.",
+  "Dead contrast: the {a} and {b} are almost the same color and lightness. Vary the brightness.":
+    "Kontras mati: {a} dan {b} nyaris sama warna dan terangnya. Bedakan kecerahannya.",
+  "{a} and {b} contrast too much. Pick a closer color or a neutral.": "{a} dan {b} terlalu kontras. Pilih warna yang lebih dekat atau netral.",
+  "A great match, easy on the eyes!": "Kombinasi serasi dan nyaman dipandang!",
+  "Decent, but not ideal yet. Adjust the color distance and brightness contrast between pieces.":
+    "Cukup oke, tapi belum ideal. Atur jarak warna dan beda kecerahan antar elemen.",
+  "Illustration of a woman in hijab, standing pose": "Ilustrasi wanita berhijab, pose berdiri",
+  // kartu slot
+  "Edit {slot} palette": "Ubah palet {slot}", "Edit color palette": "Ubah palet warna", "Unlock {slot}": "Buka kunci {slot}", "Lock {slot}": "Kunci {slot}",
+  "Pick any color": "Pilih warna bebas", "Free color for {slot}": "Warna bebas {slot}",
+  // rincian skor
+  "Ideal": "Ideal", "Dead contrast": "Kontras mati", "Sharp clash": "Tabrakan tajam", "Fair": "Cukup",
+  "Base": "Dasar", "Loud colors": "Warna pekat", "Hue clash": "Tabrakan hue", "Neutral bonus": "Bonus netral",
+  "· weight {n}%": "· bobot {n}%", "Quick fixes": "Saran cepat", "All slots are locked.": "Semua slot terkunci.",
+  "No single-color swap would raise the score meaningfully.": "Tidak ada penggantian satu warna yang menaikkan skor secara berarti.",
+  // scan
+  "Scan colors from a photo": "Scan Warna dari Foto", "Close": "Tutup",
+  "Upload a photo of a top or hijab, then tap anywhere to pick its true color.": "Unggah foto baju atau kerudung, lalu ketuk bagian mana pun untuk mengambil warna aslinya.",
+  "Change photo": "Ganti Foto", "Choose a photo from your gallery": "Pilih Foto dari Galeri", "Tap the photo…": "Ketuk foto…",
+  "Apply to slot": "Terapkan ke slot", "Apply color to {slot}": "Terapkan Warna ke {slot}",
+  // pilih banyak
+  "Select all": "Pilih semua", "{n} selected": "{n} dipilih", "Deleting…": "Menghapus…", "Really delete {n}?": "Yakin hapus {n}?", "Delete ({n})": "Hapus ({n})", "Cancel": "Batal",
+  // lemari
+  "Sort by": "Urutkan", "Select": "Pilih", "No outfits match the “{f}” filter.": "Tidak ada outfit dengan filter “{f}”.", "Show all": "Tampilkan semua",
+  "Selected": "Dipilih", "Select this outfit": "Pilih outfit ini", "Use": "Gunakan", "Confirm delete": "Konfirmasi hapus", "Delete outfit": "Hapus outfit", "Sure?": "Yakin?",
+  "Your wardrobe is empty": "Lemari masih kosong", "Put together an outfit in Mix Lab, then tap Save to keep it here.": "Racik outfit di Mix Lab lalu tekan “Simpan” untuk menyimpannya di sini.",
+  // akun
+  "My account": "Akun Saya", "Sign in": "Masuk", "Sign up": "Daftar", "Sign out": "Keluar", "Create account": "Buat Akun", "Processing…": "Memproses…",
+  "Supabase is not configured yet. Set SUPABASE_URL and SUPABASE_ANON_KEY at the top of the script. Until then, data is stored locally in this browser.":
+    "Supabase belum dikonfigurasi. Isi SUPABASE_URL dan SUPABASE_ANON_KEY di bagian atas skrip. Sementara itu, data tersimpan lokal di browser ini.",
+  "Your wardrobe and default colors are saved to your account and follow you to every device.": "Lemari Digital dan warna awal tersimpan di akunmu dan ikut ke semua perangkat.",
+  "name@email.com": "nama@email.com", "Password (min. 6 characters)": "Password (min. 6 karakter)",
+  "Wrong email or password.": "Email atau password salah.",
+  "Email not confirmed. Check your inbox, or turn off \"Confirm email\" in the Supabase dashboard.": "Email belum dikonfirmasi. Cek inbox, atau matikan \"Confirm email\" di dashboard Supabase.",
+  "This email is already registered. Please sign in.": "Email ini sudah terdaftar. Silakan masuk.",
+  "Supabase email rate limit reached. Wait a moment, or turn off \"Confirm email\" in the Supabase dashboard.": "Batas pengiriman email Supabase tercapai. Tunggu sebentar, atau matikan \"Confirm email\" di dashboard Supabase.",
+  "Password must be at least 6 characters.": "Password minimal 6 karakter.", "Something went wrong.": "Terjadi kesalahan.",
+  "Enter a valid email address.": "Masukkan alamat email yang valid.",
+  "Account created. Check your email to confirm, then sign in.": "Akun dibuat. Cek email untuk konfirmasi, lalu masuk.",
+  // warna awal
+  "The colors shown when you open the app ({which}).": "Warna yang tampil saat kamu membuka aplikasi ({which}).", "yours": "milikmu", "built-in": "bawaan",
+  "Make this combination my default": "Jadikan kombinasi ini default", "Sign in to save defaults": "Masuk untuk menyimpan default", "Apply": "Terapkan", "Reset to default": "Reset ke bawaan",
+  // palet
+  "{slot} palette": "Palet {slot}", "This is your personal palette for this slot.": "Ini palet pribadimu untuk slot ini.",
+  "Currently using the default palette. Your first change creates your own copy.": "Sekarang memakai palet bawaan. Perubahan pertama akan membuat salinan pribadimu.",
+  "{n} colors": "{n} warna", "The palette is empty. Add a new color below, or restore the default palette.": "Palet kosong. Tambahkan warna baru di bawah, atau kembalikan palet bawaan.",
+  "Edit {name}": "Ubah {name}", "Delete {name}": "Hapus {name}", "Add a new color": "Tambah warna baru", "Edit: {name}": "Ubah: {name}",
+  "Pick a color": "Pilih warna", "Color name": "Nama warna", "HEX code": "Kode HEX", "Invalid HEX code. Example: #C2185B": "Kode HEX tidak valid. Contoh: #C2185B",
+  "Saving…": "Menyimpan…", "Add": "Tambah", "Save changes": "Simpan perubahan", "Restore default?": "Yakin kembalikan?", "Restore default": "Kembalikan bawaan", "Done": "Selesai",
+  // header, ringkasan
+  "Wardrobe": "Lemari", "Match score": "Skor keserasian", "Undo color change": "Urungkan perubahan warna", "Redo color change": "Ulangi perubahan warna", "Undo": "Urungkan", "Redo": "Ulangi",
+  "Save outfit to wardrobe": "Simpan outfit ke lemari", "Save to wardrobe": "Simpan ke lemari", "Adjust colors": "Atur warna", "Scan from photo": "Scan dari foto",
+  "Score details": "Rincian skor", "Default colors": "Warna awal", "Yours": "Milikmu", "Built-in": "Bawaan",
+  "Sign in so your wardrobe is saved to your account and follows you across devices.": "Masuk agar lemari tersimpan di akun dan ikut ke semua perangkat.",
+  "Theme: {mode}. Tap to change": "Tema: {mode}. Ketuk untuk mengganti", "Change theme": "Ganti tema", "automatic": "otomatis", "light": "terang", "dark": "gelap",
+  "Theme follows your device": "Tema mengikuti perangkat", "Light theme": "Tema terang", "Dark theme": "Tema gelap",
+  "Language: {lang}. Tap to switch.": "Bahasa: {lang}. Ketuk untuk mengganti.",
+  // toast
+  "All slots are locked. Unlock one first 🔓": "Semua slot terkunci. Buka satu gembok dulu 🔓",
+  "{n} local outfits moved to your account": "{n} outfit lokal dipindahkan ke akunmu", "Failed to load account data: {msg}": "Gagal memuat data akun: {msg}",
+  "Failed to update palette: {msg}": "Gagal mengubah palet: {msg}", "{n} colors deleted": "{n} warna dihapus", "Palette restored to default": "Palet dikembalikan ke bawaan",
+  "Sign in first to create your own color palette": "Masuk dulu untuk membuat palet warna pribadi",
+  "Outfit saved to your account ✨": "Outfit tersimpan di akunmu ✨", "Outfit saved to your wardrobe ✨": "Outfit tersimpan di Lemari Digital ✨", "Failed to save: {msg}": "Gagal menyimpan: {msg}",
+  "Failed to delete: {msg}": "Gagal menghapus: {msg}", "{n} outfits deleted": "{n} outfit dihapus", "Failed to change tag: {msg}": "Gagal mengubah tag: {msg}",
+  "Outfit loaded into Mix Lab": "Outfit dimuat ke Mix Lab", "Default colors saved to your account": "Warna awal disimpan ke akunmu", "Failed to save defaults: {msg}": "Gagal menyimpan default: {msg}",
+  "Back to the default colors": "Kembali ke warna bawaan", "Failed to reset: {msg}": "Gagal mereset: {msg}", "You've signed out": "Kamu sudah keluar",
+  "{slot} changed to {color}": "{slot} diganti ke {color}", "Color {hex} applied to {slot}": "Warna {hex} diterapkan ke {slot}",
+};
+
+
+/* =========================================================
+   1. DATASET WARNA PRESET
+   ========================================================= */
+const COLORS = [
+  { id: "mocca", name: "Mocca", hex: "#A52A2A", category: "Earth Tone", isNeutral: false },
+  { id: "espresso", name: "Espresso", hex: "#3B2F2F", category: "Earth Tone", isNeutral: true },
+  { id: "cream", name: "Cream", hex: "#FFFDD0", category: "Earth Tone", isNeutral: true },
+  { id: "sand", name: "Sand", hex: "#C2B280", category: "Earth Tone", isNeutral: true },
+  { id: "olive", name: "Olive", hex: "#808000", category: "Earth Tone", isNeutral: false },
+  { id: "khaki", name: "Khaki", hex: "#F0E68C", category: "Earth Tone", isNeutral: true },
+  { id: "camel", name: "Camel", hex: "#C19A6B", category: "Earth Tone", isNeutral: true },
+  { id: "terracotta", name: "Terracotta", hex: "#C1664A", category: "Earth Tone", isNeutral: false },
+  { id: "chocolate", name: "Chocolate", hex: "#5C4033", category: "Earth Tone", isNeutral: true },
+  { id: "rust", name: "Rust", hex: "#B7410E", category: "Earth Tone", isNeutral: false },
+  { id: "taupe", name: "Taupe", hex: "#8B7D6B", category: "Earth Tone", isNeutral: true },
+  { id: "dustypink", name: "Dusty Pink", hex: "#DCAE96", category: "Soft Pastel", isNeutral: false },
+  { id: "babyblue", name: "Baby Blue", hex: "#89CFF0", category: "Soft Pastel", isNeutral: false },
+  { id: "lilac", name: "Lilac", hex: "#C8A2C8", category: "Soft Pastel", isNeutral: false },
+  { id: "sage", name: "Sage Green", hex: "#9DC183", category: "Soft Pastel", isNeutral: false },
+  { id: "milktea", name: "Milk Tea", hex: "#E6C280", category: "Soft Pastel", isNeutral: false },
+  { id: "peach", name: "Peach", hex: "#FFCBA4", category: "Soft Pastel", isNeutral: false },
+  { id: "mint", name: "Mint", hex: "#B5EAD7", category: "Soft Pastel", isNeutral: false },
+  { id: "powderpink", name: "Powder Pink", hex: "#F4C2C2", category: "Soft Pastel", isNeutral: false },
+  { id: "lavender", name: "Lavender", hex: "#B8A9C9", category: "Soft Pastel", isNeutral: false },
+  { id: "black", name: "Midnight Black", hex: "#1A1A1A", category: "Monochrome", isNeutral: true },
+  { id: "charcoal", name: "Charcoal", hex: "#36454F", category: "Monochrome", isNeutral: true },
+  { id: "lightgrey", name: "Light Grey", hex: "#D3D3D3", category: "Monochrome", isNeutral: true },
+  { id: "offwhite", name: "Off-White", hex: "#FAFAFA", category: "Monochrome", isNeutral: true },
+  { id: "denim", name: "Denim Blue", hex: "#1560BD", category: "Monochrome", isNeutral: true },
+  { id: "slate", name: "Slate", hex: "#708090", category: "Monochrome", isNeutral: true },
+  { id: "navy", name: "Navy", hex: "#1F2A44", category: "Monochrome", isNeutral: true },
+  { id: "cobalt", name: "Cobalt Blue", hex: "#0047AB", category: "Bold", isNeutral: false },
+  { id: "emerald", name: "Emerald Green", hex: "#50C878", category: "Bold", isNeutral: false },
+  { id: "burgundy", name: "Burgundy", hex: "#800020", category: "Bold", isNeutral: false },
+  { id: "mustard", name: "Mustard", hex: "#FFDB58", category: "Bold", isNeutral: false },
+  { id: "fuchsia", name: "Fuchsia", hex: "#C2185B", category: "Bold", isNeutral: false },
+  { id: "teal", name: "Teal", hex: "#008080", category: "Bold", isNeutral: false },
+  { id: "coral", name: "Coral", hex: "#FF6F61", category: "Bold", isNeutral: false },
+  { id: "orange", name: "Bright Orange", hex: "#FF8C00", category: "Bold", isNeutral: false },
+  { id: "purple", name: "Royal Purple", hex: "#6A3FA0", category: "Bold", isNeutral: false },
+];
+const BY_ID = Object.fromEntries(COLORS.map((c) => [c.id, c]));
+
+const SLOTS = [
+  { key: "hijab", icon: "hijab", get label() { return tr("Hijab / Scarf"); }, get short() { return tr("Hijab"); }, get word() { return tr("hijab"); } },
+  { key: "top", icon: "shirt", get label() { return tr("Top / Shirt"); }, get short() { return tr("Top"); }, get word() { return tr("top"); } },
+  { key: "bottom", icon: "pants", get label() { return tr("Bottom / Pants"); }, get short() { return tr("Pants"); }, get word() { return tr("pants"); } },
+];
+const TAGS = ["Nongkrong", "Kerja/Kuliah", "Kondangan", "Casual"];
+const STORAGE_KEY = "ootd-match-mix-lab:wardrobe:v1";
+const DEFAULT_HEX = ["#DCAE96", "#FFFDD0", "#1560BD"];
+
+/* =========================================================
+   2. UTILITAS WARNA & MATCHING ENGINE v2
+   ========================================================= */
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const hueDist = (a, b) => { const d = Math.abs(a - b) % 360; return d > 180 ? 360 - d : d; };
+
+function normHex(v) {
+  if (typeof v !== "string") return null;
+  let s = v.trim().replace(/^#/, "");
+  if (/^[0-9a-f]{3}$/i.test(s)) s = s.split("").map((c) => c + c).join("");
+  return /^[0-9a-f]{6}$/i.test(s) ? "#" + s.toUpperCase() : null;
+}
+const toRgb = (hex) => { const n = parseInt(hex.slice(1), 16); return [n >> 16, (n >> 8) & 255, n & 255]; };
+const rgbToHex = (r, g, b) => "#" + [r, g, b].map((x) => clamp(Math.round(x), 0, 255).toString(16).padStart(2, "0")).join("").toUpperCase();
+
+function hexToHsl(hex) {
+  const [R, G, B] = toRgb(hex);
+  const r = R / 255, g = G / 255, b = B / 255;
+  const max = Math.max(r, g, b), min = Math.min(r, g, b);
+  const l = (max + min) / 2, d = max - min;
+  let h = 0, s = 0;
+  if (d !== 0) {
+    s = d / (1 - Math.abs(2 * l - 1));
+    if (max === r) h = ((g - b) / d) % 6; else if (max === g) h = (b - r) / d + 2; else h = (r - g) / d + 4;
+    h *= 60; if (h < 0) h += 360;
+  }
+  return { h, s, l };
+}
+
+function textOn(hex) {
+  const lin = (v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); };
+  const [r, g, b] = toRgb(hex);
+  return 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b) > 0.4 ? "#1f1b16" : "#ffffff";
+}
+
+/* Klasifikasi HSL: neutral | pastel | earth (muted) | bold (vibrant) */
+function describe(hex) {
+  const { h, s, l } = hexToHsl(hex);
+  let g;
+  if (s <= 0.12 || l < 0.12 || l > 0.93) g = "neutral";                              // hitam, putih, abu
+  else if (h >= 205 && h <= 225 && s >= 0.4 && s <= 0.9 && l >= 0.3 && l <= 0.55) g = "neutral"; // denim
+  else if (h <= 40 && s < 0.65 && l >= 0.2 && l <= 0.5) g = "neutral";                // mocca, coklat tua
+  else if (l < 0.24) g = "neutral";                                                  // navy, espresso, dark grey
+  else if (h >= 35 && h <= 65 && l >= 0.74) g = "neutral";                           // cream, beige, khaki
+  else if ((l > 0.7 && s < 0.5) || (l >= 0.7 && s <= 0.95) || l >= 0.78) g = "pastel";
+  else if (h >= 55 && h <= 75 && l < 0.55) g = "earth";                              // olive
+  else if (s < 0.6 && (h <= 60 || h >= 330 || s < 0.4) && l >= 0.2 && l <= 0.72) g = "earth";
+  else g = "bold";
+  return { hex, h, s, l, g, neutral: g === "neutral" };
+}
+
+function nearestPreset(hex) {
+  const [r, g, b] = toRgb(hex);
+  let best = null, bd = Infinity;
+  COLORS.forEach((c) => {
+    const [r2, g2, b2] = toRgb(c.hex);
+    const d = Math.sqrt((r - r2) ** 2 + (g - g2) ** 2 + (b - b2) ** 2);
+    if (d < bd) { bd = d; best = c; }
+  });
+  return { preset: best, dist: bd };
+}
+function colorName(hex) {
+  const { preset, dist } = nearestPreset(hex);
+  if (dist === 0) return preset.name;
+  return dist < 45 ? `≈ ${preset.name}` : `${tr("Custom")} · ${preset.name}`;
+}
+
+/* ---------- CIELAB + CIEDE2000 ---------- */
+function hexToLab(hex) {
+  const lin = (v) => { v /= 255; return v <= 0.04045 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); };
+  const [r, g, b] = toRgb(hex).map(lin);
+  const X = (r * 0.4124564 + g * 0.3575761 + b * 0.1804375) * 100;   // sRGB -> XYZ (D65)
+  const Y = (r * 0.2126729 + g * 0.7151522 + b * 0.0721750) * 100;
+  const Z = (r * 0.0193339 + g * 0.1191920 + b * 0.9503041) * 100;
+  const f = (t) => (t > 0.008856 ? Math.cbrt(t) : 7.787 * t + 16 / 116);
+  const fx = f(X / 95.047), fy = f(Y / 100), fz = f(Z / 108.883);
+  const L = 116 * fy - 16, a = 500 * (fx - fy), bb = 200 * (fy - fz);
+  return { L, a, b: bb, C: Math.hypot(a, bb), h: (Math.atan2(bb, a) * 180 / Math.PI + 360) % 360 };
+}
+
+// Delta E (CIE76): jarak Euclidean di ruang CIELAB
+const deltaE = (p, q) => Math.sqrt((p.L - q.L) ** 2 + (p.a - q.a) ** 2 + (p.b - q.b) ** 2);
+
+// Aturan evaluasi pasangan S_ij
+function pairScore(A, B) {
+  const dE = deltaE(A.lab, B.lab), dL = Math.abs(A.lab.L - B.lab.L);
+  if (dE >= 15 && dE <= 45 && dL >= 12) return { score: 100, dE, dL, tag: "ideal" };
+  if (dE < 15 && dL < 10) return { score: 40, dE, dL, tag: "dead" };     // monoton / mati
+  if (dE > 55) return { score: 30, dE, dL, tag: "sharp" };               // tabrakan tajam
+  return { score: 75, dE, dL, tag: "ok" };
+}
+
+// Bobot visual: Baju-Celana 50%, Kerudung-Baju 35%, Kerudung-Celana 15%
+const PAIR_DEFS = [
+  { i: 1, j: 2, w: 0.5 },
+  { i: 0, j: 1, w: 0.35 },
+  { i: 0, j: 2, w: 0.15 },
+];
+
+function analyze(hexes) {
+  const info = hexes.map((h) => ({ ...describe(h), lab: hexToLab(h) }));
+  const pairs = PAIR_DEFS.map((p) => ({ ...p, ...pairScore(info[p.i], info[p.j]) }));
+  const base = pairs.reduce((sum, p) => sum + p.score * p.w, 0);
+
+  const chroma = info.map((c, i) => ({ ...c, i })).filter((c) => !c.neutral);
+  const neutralCount = 3 - chroma.length;
+  const reasons = [];
+
+  // P_sat: >= 2 elemen non-netral dengan Saturation HSL > 65%  ->  -35
+  const loud = chroma.filter((c) => c.s > 0.65);
+  const sat = loud.length >= 2 ? 35 : 0;
+  if (sat) reasons.push({ type: "sat", slots: loud.map((c) => c.i), amount: sat });
+
+  // P_clash: hue 70-110 derajat antar 2 warna non-netral, tanpa elemen netral  ->  -30
+  let clash = 0;
+  if (neutralCount === 0) {
+    for (let a = 0; a < chroma.length && !clash; a++)
+      for (let b = a + 1; b < chroma.length && !clash; b++) {
+        const d = hueDist(chroma[a].h, chroma[b].h);
+        if (d >= 70 && d <= 110) { clash = 30; reasons.push({ type: "clash", slots: [chroma[a].i, chroma[b].i], deg: Math.round(d), amount: 30 }); }
+      }
+  }
+
+  // B_neutral: +15 jika 1 netral, +25 jika >= 2 netral
+  const bonus = neutralCount >= 2 ? 25 : neutralCount === 1 ? 15 : 0;
+  pairs.forEach((p) => { if (p.tag === "dead" || p.tag === "sharp") reasons.push({ type: p.tag, pair: p, amount: 100 - p.score }); });
+  reasons.sort((x, y) => y.amount - x.amount);
+
+  const score = Math.round(clamp(base - sat - clash + bonus, 10, 100));
+  return { score, info, pairs, reasons, neutralCount, adj: { base: Math.round(base), sat, clash, bonus } };
+}
+
+function getVibe(an) {
+  const { info, score, neutralCount } = an;
+  const colored = info.filter((c) => !c.neutral);
+  const spread = colored.length > 1 ? Math.max(...colored.flatMap((a) => colored.map((b) => hueDist(a.h, b.h)))) : 0;
+  const lightRange = Math.max(...info.map((c) => c.lab.L)) - Math.min(...info.map((c) => c.lab.L));
+  const darkN = info.filter((c) => c.neutral && c.l < 0.22).length;
+  const mambaAccent = colored.some((c) => c.g === "bold" && ((c.h >= 255 && c.h <= 300) || (c.h >= 40 && c.h <= 55)));
+  const earth = info.filter((c) => c.g === "earth" || (c.neutral && c.h >= 15 && c.h <= 65 && c.s >= 0.12)).length;
+
+  if (an.reasons.some((r) => r.type === "clash") || score < 40) return "Warna Tabrakan";
+  if (score < 75) return "Masih Eksperimen";
+  if (neutralCount === 3) return "Monochrome Casual";
+  if (darkN >= 2 && mambaAccent) return "Cewek Mamba";
+  if (colored.length >= 2 && spread <= 40 && lightRange >= 15) return "Tone-on-Tone";
+  if (earth >= 2) return "Earth Tone Warm";
+  if (info.filter((c) => c.g === "pastel").length >= 2) return "Soft Pastel";
+  if (info.some((c) => c.hex === "#1560BD")) return "Denim Day";
+  if (colored.length === 1) return "Pop of Color";
+  return "Casual Mix";
+}
+
+function getNotes(an, hexes) {
+  const nm = (i) => `${SLOTS[i].short} (${colorName(hexes[i]).replace("≈ ", "")})`;
+  return an.reasons.map((r) => {
+    if (r.type === "sat") return tr("Stacked loud colors: {names} are both very saturated. Lower one's saturation or swap it for a neutral.", { names: r.slots.map(nm).join(" & ") });
+    if (r.type === "clash") return tr("{a} and {b} clash on the color wheel with no neutral to balance them. Add black, cream, or denim.", { a: nm(r.slots[0]), b: nm(r.slots[1]) });
+    const a = SLOTS[r.pair.i].word, b = SLOTS[r.pair.j].word;
+    if (r.type === "dead") return tr("Dead contrast: the {a} and {b} are almost the same color and lightness. Vary the brightness.", { a, b });
+    return tr("{a} and {b} contrast too much. Pick a closer color or a neutral.", { a: SLOTS[r.pair.i].short, b });
+  });
+}
+
+function getTip(an, hexes) {
+  if (an.score >= 75) return tr("A great match, easy on the eyes!");
+  const parts = getNotes(an, hexes);
+  return parts.length ? parts[0] : tr("Decent, but not ideal yet. Adjust the color distance and brightness contrast between pieces.");
+}
+
+/* Saran perbaikan satu ketukan: ganti 1 slot (yang tidak terkunci) dengan preset terbaik */
+function suggestFixes(hexes, locks, pal) {
+  const cur = analyze(hexes).score;
+  const out = [];
+  hexes.forEach((h, i) => {
+    if (locks[i]) return;
+    let best = null;
+    pal[i].forEach((c) => {
+      if (c.hex === h) return;
+      const sc = analyze(hexes.map((x, k) => (k === i ? c.hex : x))).score;
+      if (!best || sc > best.score) best = { slot: i, color: c, score: sc };
+    });
+    if (best && best.score - cur >= 4) out.push({ ...best, gain: best.score - cur });
+  });
+  return out.sort((a, b) => b.gain - a.gain);
+}
+
+const isDark = () => document.documentElement.classList.contains("dark");
+const scoreTone = (s) => {
+  const d = isDark();
+  return s >= 80 ? { c: d ? "#8fd0a8" : "#4f9b72", bg: d ? "rgba(110,190,145,.16)" : "#e3f3ea", t: tr("Great match") }
+    : s >= 70 ? { c: d ? "#e8c27a" : "#a9803a", bg: d ? "rgba(225,185,100,.16)" : "#f8eed9", t: tr("Pretty good") }
+    : { c: d ? "#f0899d" : "#c4566f", bg: d ? "rgba(235,110,135,.16)" : "#fbe4e9", t: tr("Needs work") };
+};
+
+const randFrom = (list) => { const l = list.length ? list : defaultPalette(); return l[Math.floor(Math.random() * l.length)].hex; };
+function randomOutfit(current, locked, pal) {
+  const cands = [];
+  for (let n = 0; n < 400; n++) {
+    const hs = current.map((h, i) => (locked[i] ? h : randFrom(pal[i])));
+    cands.push({ hs, score: analyze(hs).score });
+  }
+  cands.sort((a, b) => b.score - a.score);
+  let pool = cands.filter((c) => c.score >= 78 && c.hs.join() !== current.join()).slice(0, 15);
+  if (!pool.length) pool = cands.slice(0, 5);
+  return pool[Math.floor(Math.random() * pool.length)].hs;
+}
+
+/* =========================================================
+   3. ICONS (path bergaya Lucide, inline tanpa build)
+   ========================================================= */
+const Icon = ({ name, size = 20, className = "" }) => {
+  const P = {
+    hijab: <><path d="M12 3c-4 0-7 3-7 7 0 3 1 5 2 7l5 4 5-4c1-2 2-4 2-7 0-4-3-7-7-7z" /><ellipse cx="12" cy="11" rx="3" ry="3.6" /></>,
+    shirt: <path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z" />,
+    pants: <path d="M7 3h10l1.5 18h-4.5L12 10l-2 11H5.5z" />,
+    shoes: <><path d="M4 16v-2.38C4 11.5 2.97 10.5 3 8c.03-2.72 1.49-6 4.5-6C9.37 2 10 3.8 10 5.5c0 3.11-2 5.66-2 8.68V16a2 2 0 1 1-4 0Z" /><path d="M20 20v-2.38c0-2.12 1.03-3.12 1-5.62-.03-2.72-1.49-6-4.5-6C14.63 6 14 7.8 14 9.5c0 3.11 2 5.66 2 8.68V20a2 2 0 1 0 4 0Z" /><path d="M16 17h4" /><path d="M4 13h4" /></>,
+    watch: <><circle cx="12" cy="12" r="6" /><polyline points="12 10 12 12 13 13" /><path d="m16.13 7.66-.81-4.05a2 2 0 0 0-2-1.61h-2.68a2 2 0 0 0-2 1.61l-.78 4.05" /><path d="m7.88 16.36.8 4a2 2 0 0 0 2 1.64h2.72a2 2 0 0 0 2-1.64l.8-4" /></>,
+    lock: <><rect x="3" y="11" width="18" height="11" rx="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></>,
+    unlock: <><rect x="3" y="11" width="18" height="11" rx="2" /><path d="M7 11V7a5 5 0 0 1 9.9-1" /></>,
+    sparkles: <><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z" /><path d="M19 15l.7 1.8 1.8.7-1.8.7L19 20l-.7-1.8-1.8-.7 1.8-.7z" /></>,
+    save: <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z" />,
+    trash: <><path d="M3 6h18" /><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" /><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /></>,
+    redo: <><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /><path d="M3 3v5h5" /></>,
+    palette: <><circle cx="13.5" cy="6.5" r=".6" /><circle cx="17.5" cy="10.5" r=".6" /><circle cx="8.5" cy="7.5" r=".6" /><circle cx="6.5" cy="12.5" r=".6" /><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.9 0 1.5-.7 1.5-1.5 0-.4-.2-.8-.4-1-.3-.3-.5-.7-.5-1.1 0-.8.7-1.5 1.5-1.5H16c3.3 0 6-2.7 6-6 0-4.9-4.5-9-10-9z" /></>,
+    archive: <><rect x="2" y="3" width="20" height="5" rx="1" /><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8" /><path d="M10 12h4" /></>,
+    camera: <><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" /><circle cx="12" cy="13" r="3" /></>,
+    x: <path d="M18 6 6 18M6 6l12 12" />,
+    pipette: <><path d="m2 22 1-1h3l9-9" /><path d="M3 21v-3l9-9" /><path d="m15 6 3.4-3.4a2.1 2.1 0 1 1 3 3L18 9l.4.4a2.1 2.1 0 1 1-3 3l-3.8-3.8a2.1 2.1 0 1 1 3-3l.4.4Z" /></>,
+    check: <path d="M20 6 9 17l-5-5" />,
+    undo: <><path d="M9 14 4 9l5-5" /><path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5 5.5 5.5 0 0 1-5.5 5.5H11" /></>,
+    redo: <><path d="m15 14 5-5-5-5" /><path d="M20 9H9.5A5.5 5.5 0 0 0 4 14.5 5.5 5.5 0 0 0 9.5 20H13" /></>,
+    chevron: <path d="m6 9 6 6 6-6" />,
+    sun: <><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" /></>,
+    moon: <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />,
+    monitor: <><rect width="20" height="14" x="2" y="3" rx="2" /><path d="M8 21h8M12 17v4" /></>,
+    pencil: <><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" /><path d="m15 5 4 4" /></>,
+    plus: <><path d="M5 12h14" /><path d="M12 5v14" /></>,
+    user: <><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></>,
+    logout: <><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /><path d="m16 17 5-5-5-5" /><path d="M21 12H9" /></>,
+    image: <><rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="9" cy="9" r="2" /><path d="m21 15-3.1-3.1a2 2 0 0 0-2.8 0L6 21" /></>,
+  };
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      {P[name]}
+    </svg>
+  );
+};
+
+/* =========================================================
+   4. MANEKIN SVG (5 layer, fill terikat ke state)
+   ========================================================= */
+function Mannequin({ hexes, active, onSelect }) {
+  const SKIN = "#F2CBA7", INK = "#2b2420";
+  const lp = (i) => ({
+    className: "layer fade-fill",
+    onClick: onSelect ? () => onSelect(i) : undefined,
+    stroke: INK,
+    strokeWidth: 1.6,
+    strokeLinejoin: "round", strokeLinecap: "round",
+  });
+  const ln = { stroke: INK, strokeWidth: 1.3, fill: "none", strokeLinecap: "round", strokeLinejoin: "round", pointerEvents: "none" };
+  const skin = { fill: SKIN, stroke: INK, strokeWidth: 1.4, strokeLinejoin: "round" };
+  return (
+    <svg viewBox="0 0 200 424" className="h-full w-full" role="img" aria-label={tr("Illustration of a woman in hijab, standing pose")}>
+      <ellipse cx="100" cy="414" rx="56" ry="6" fill="rgba(60,40,20,.12)" />
+
+      {/* kulit: leher, wajah, tangan */}
+      <path d="M93 72 V108 Q100 114 107 108 V72 Z" {...skin} />
+      <ellipse cx="100" cy="52" rx="20" ry="24" {...skin} />
+      <path d="M50 214 Q49 228 52 234 Q58 238 63 234 Q66 226 65 214 Z" {...skin} />
+      <path d="M150 214 Q151 228 148 234 Q142 238 137 234 Q134 226 135 214 Z" {...skin} />
+
+      {/* layer 3: celana (lurus) */}
+      <path d="M70 204 H130 L126 392 H104 L100 238 L96 392 H74 Z" fill={hexes[2]} {...lp(2)} />
+
+      {/* sepatu sneakers putih */}
+      <path d="M74 392 H96 L98 404 Q98 411 91 411 H69 Q64 411 66 405 Q69 397 74 392 Z" fill="#fff" stroke={INK} strokeWidth="1.5" strokeLinejoin="round" />
+      <path d="M65 405 H98" {...ln} />
+      <path d="M104 392 H126 Q131 397 134 405 Q136 411 131 411 H109 Q102 411 102 404 Z" fill="#fff" stroke={INK} strokeWidth="1.5" strokeLinejoin="round" />
+      <path d="M102 405 H135" {...ln} />
+
+      {/* layer 2: baju (tunik lurus, lengan panjang) */}
+      <path d="M68 106 Q100 120 132 106 L136 150 L139 216 Q100 226 61 216 L64 150 Z" fill={hexes[1]} {...lp(1)} />
+      <path d="M67 104 Q54 110 52 128 L47 204 Q56 212 67 208 L69 170 L72 124 Z" fill={hexes[1]} {...lp(1)} />
+      <path d="M133 104 Q146 110 148 128 L153 204 Q144 212 133 208 L131 170 L128 124 Z" fill={hexes[1]} {...lp(1)} />
+      <path d="M48 199 Q57 205 67 201 M152 199 Q143 205 133 201" {...ln} />
+
+      {/* layer 1: kerudung (lubang wajah dengan evenodd) */}
+      <path fillRule="evenodd" fill={hexes[0]} {...lp(0)}
+        d="M100 10 C79 10 69 29 69 53 C69 68 66 80 61 94 C58 102 60 110 67 115 Q100 146 133 115 C140 110 142 102 139 94 C134 80 131 68 131 53 C131 29 121 10 100 10 Z M82 52 a18 22 0 1 0 36 0 a18 22 0 1 0 -36 0 Z" />
+      <path d="M68 116 Q100 140 132 116" {...ln} />
+      <path d="M62 112 Q100 148 138 112 Q100 128 62 112 Z" fill="rgba(0,0,0,.10)" style={{ pointerEvents: "none" }} />
+
+      {/* wajah */}
+      <circle cx="93" cy="52" r="1.7" fill={INK} /><circle cx="107" cy="52" r="1.7" fill={INK} />
+      <path d="M88 46 q5 -3 9 0 M103 46 q5 -3 9 0" {...ln} />
+      <path d="M96 64 q4 3 8 0" {...ln} />
+      <path d="M100 55 v5" {...ln} strokeWidth="1" />
+    </svg>
+  );
+}
+
+/* =========================================================
+   5. KOMPONEN UI
+   ========================================================= */
+function SlotCard({ slot, hex, palette, locked, active, onSelect, onPick, onToggleLock, onEdit }) {
+  const selRef = useRef(null);
+  const fg = textOn(hex);
+  const d = describe(hex);
+  useEffect(() => {
+    const el = selRef.current;
+    if (el && el.parentElement) {
+      const p = el.parentElement;
+      p.scrollTo({ left: el.offsetLeft - p.clientWidth / 2 + el.clientWidth / 2, behavior: "smooth" });
+    }
+  }, [hex]);
+  const matched = palette.some((c) => c.hex === hex);
+
+  return (
+    <div onClick={onSelect}
+      className={`flex flex-1 flex-col justify-center gap-2 rounded-2xl bg-white p-2.5 ring-1 transition ${active ? "ring-2 ring-rose-400 shadow" : "ring-stone-200"}`}>
+      <div className="flex items-center gap-2.5">
+        <div className="fade-bg flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ring-1 ring-black/10" style={{ backgroundColor: hex, color: fg }}>
+          <Icon name={slot.icon} size={18} />
+        </div>
+        <div className="min-w-0 flex-1 leading-tight">
+          <p className="truncate text-[11px] font-semibold uppercase tracking-wide text-stone-400">{slot.label}</p>
+          <p className="truncate text-sm font-bold text-stone-800">{colorName(hex)}</p>
+          <p className="truncate font-mono text-[11px] text-stone-500">{hex} · {groupLabel(d.g)}</p>
+        </div>
+        <button onClick={(e) => { e.stopPropagation(); onEdit(); }} aria-label={tr("Edit {slot} palette", { slot: slot.short })} title={tr("Edit color palette")}
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-stone-100 text-stone-500 transition active:scale-90">
+          <Icon name="pencil" size={15} />
+        </button>
+        <button onClick={(e) => { e.stopPropagation(); onToggleLock(); }} aria-pressed={locked}
+          aria-label={locked ? tr("Unlock {slot}", { slot: slot.short }) : tr("Lock {slot}", { slot: slot.short })}
+          className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition active:scale-90 ${locked ? "bg-stone-900 text-white" : "bg-stone-100 text-stone-500"}`}>
+          <Icon name={locked ? "lock" : "unlock"} size={16} />
+        </button>
+      </div>
+      <div className={`flex items-center gap-2 transition-opacity ${locked ? "pointer-events-none opacity-40" : ""}`}>
+        <label title={tr("Pick any color")} className="relative flex h-9 w-9 shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-full shadow ring-2 ring-white"
+          style={{ background: matched ? "conic-gradient(#f43f5e,#f59e0b,#84cc16,#06b6d4,#6366f1,#d946ef,#f43f5e)" : hex }}>
+          <span className="pointer-events-none text-white drop-shadow"><Icon name="pipette" size={14} /></span>
+          <input type="color" value={hex.toLowerCase()} onChange={(e) => onPick(normHex(e.target.value))} disabled={locked}
+            className="absolute inset-0 h-full w-full opacity-0" aria-label={tr("Free color for {slot}", { slot: slot.short })} />
+        </label>
+        <div className="no-scrollbar flex min-w-0 flex-1 gap-2.5 overflow-x-auto px-1 py-2">
+          {palette.map((c) => {
+            const sel = c.hex === hex;
+            return (
+              <button key={c.id + c.hex} ref={sel ? selRef : null} onClick={(e) => { e.stopPropagation(); onPick(c.hex); }} title={c.name} aria-label={c.name} disabled={locked}
+                className={`h-8 w-8 shrink-0 rounded-full transition-transform duration-200 hover:scale-110 ${sel ? "scale-110" : ""}`}
+                style={{ backgroundColor: c.hex, boxShadow: sel ? `0 0 0 2px #fff, 0 0 0 3.5px ${["#FAFAFA", "#FFFDD0"].includes(c.hex) ? "#a8a29e" : c.hex}` : "inset 0 0 0 1px rgba(0,0,0,.12)" }} />
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ScoreBreakdown({ an, fixes, notes, allLocked, onApply }) {
+  const tagText = (p) => p.score >= 90 ? tr("Ideal") : p.tag === "dead" ? tr("Dead contrast") : p.tag === "sharp" ? tr("Sharp clash") : tr("Fair");
+  const chips = [
+    { id: "base", k: tr("Base"), v: an.adj.base, c: "bg-stone-100 text-stone-600", show: true },
+    { id: "sat", k: tr("Loud colors"), v: -an.adj.sat, c: "bg-red-50 text-red-600", show: an.adj.sat > 0 },
+    { id: "clash", k: tr("Hue clash"), v: -an.adj.clash, c: "bg-red-50 text-red-600", show: an.adj.clash > 0 },
+    { id: "bonus", k: tr("Neutral bonus"), v: an.adj.bonus, c: "bg-green-50 text-green-700", show: an.adj.bonus > 0 },
+  ].filter((c) => c.show);
+  return (
+    <div>
+      <div className="space-y-2.5">
+        {an.pairs.map((p) => {
+          const t = scoreTone(p.score);
+          return (
+            <div key={`${p.i}-${p.j}`}>
+              <div className="flex flex-wrap items-baseline justify-between gap-x-2 text-xs">
+                <span className="font-bold text-stone-700">{SLOTS[p.i].short} – {SLOTS[p.j].short} <span className="font-normal text-stone-400">{tr("· weight {n}%", { n: Math.round(p.w * 100) })}</span></span>
+                <span className="font-semibold" style={{ color: t.c }}>{tagText(p)} · {Math.round(p.score)} <span className="font-mono text-[11px] font-normal text-stone-400">ΔE {p.dE.toFixed(0)}</span></span>
+              </div>
+              <div className="mt-1 h-2 overflow-hidden rounded-full bg-stone-100">
+                <div className="h-full rounded-full" style={{ width: `${p.score}%`, backgroundColor: t.c, transition: "width .5s ease, background-color .4s ease" }} />
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      <div className="mt-3 flex flex-wrap gap-1.5">
+        {chips.map((c) => (
+          <span key={c.id} className={`rounded-full px-2.5 py-1 text-[11px] font-bold ${c.c}`}>{c.k} {c.id === "base" ? c.v : (c.v > 0 ? "+" : "−") + Math.abs(c.v)}</span>
+        ))}
+      </div>
+      {notes.length > 0 && (
+        <ul className="mt-3 space-y-1.5 text-xs leading-relaxed text-stone-600">
+          {notes.map((n, i) => <li key={i} className="flex gap-2"><span aria-hidden>•</span><span>{n}</span></li>)}
+        </ul>
+      )}
+      <div className="mt-3 border-t border-stone-100 pt-3">
+        <p className="text-xs font-bold text-stone-500">{tr("Quick fixes")}</p>
+        {allLocked ? <p className="mt-1 text-xs text-stone-400">{tr("All slots are locked.")}</p>
+          : fixes.length === 0 ? <p className="mt-1 text-xs text-stone-400">{tr("No single-color swap would raise the score meaningfully.")}</p>
+          : <div className="mt-1.5 flex flex-wrap gap-2">
+              {fixes.map((f) => (
+                <button key={f.slot} onClick={() => onApply(f.slot, f.color.hex)}
+                  className="flex items-center gap-2 rounded-2xl bg-stone-50 py-1.5 pl-1.5 pr-3 text-xs font-bold ring-1 ring-stone-200 transition active:scale-95">
+                  <span className="h-6 w-6 rounded-full ring-1 ring-black/10" style={{ backgroundColor: f.color.hex }} />
+                  <span>{SLOTS[f.slot].short} → {f.color.name}</span>
+                  <span className="text-green-600">+{f.gain}%</span>
+                </button>
+              ))}
+            </div>}
+      </div>
+    </div>
+  );
+}
+
+function Accordion({ title, summary, children }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="mt-3 overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-stone-200">
+      <button aria-expanded={open} onClick={() => setOpen((o) => !o)} className="flex min-h-[48px] w-full items-center justify-between gap-2 px-4 text-left">
+        <span className="text-sm font-extrabold">{title}</span>
+        <span className="flex items-center gap-2 text-xs text-stone-500">{summary}<span className={`transition-transform ${open ? "rotate-180" : ""}`}><Icon name="chevron" size={16} /></span></span>
+      </button>
+      {open && <div className="slide-up border-t border-stone-100 px-4 pb-4 pt-3">{children}</div>}
+    </div>
+  );
+}
+
+function ScoreRing({ score }) {
+  const t = scoreTone(score), r = 22, C = 2 * Math.PI * r;
+  return (
+    <div className="relative h-14 w-14 shrink-0">
+      <svg viewBox="0 0 56 56" className="h-14 w-14 -rotate-90">
+        <circle cx="28" cy="28" r={r} fill="none" stroke={isDark() ? "#43363e" : "#f3e4e8"} strokeWidth="6" />
+        <circle cx="28" cy="28" r={r} fill="none" stroke={t.c} strokeWidth="6" strokeLinecap="round"
+          strokeDasharray={C} strokeDashoffset={C * (1 - score / 100)} style={{ transition: "stroke-dashoffset .6s ease, stroke .4s ease" }} />
+      </svg>
+      <span className="absolute inset-0 flex items-center justify-center text-sm font-extrabold" style={{ color: t.c }}>{score}%</span>
+    </div>
+  );
+}
+
+/* ---------- Modal: Scan Warna dari Foto ---------- */
+function ScanModal({ open, onClose, locks, initialSlot, onApply }) {
+  const canvasRef = useRef(null);
+  const imgRef = useRef(null);
+  const [hasImg, setHasImg] = useState(false);
+  const [picked, setPicked] = useState(null);
+  const [target, setTarget] = useState(initialSlot);
+
+  useEffect(() => { if (open) { setTarget(locks[initialSlot] ? Math.max(0, locks.findIndex((l) => !l)) : initialSlot); } }, [open, initialSlot]);
+
+  const drawBase = () => {
+    const cv = canvasRef.current, img = imgRef.current;
+    if (!cv || !img) return null;
+    const maxW = Math.min(window.innerWidth - 56, 440), maxH = Math.round(window.innerHeight * 0.4);
+    const sc = Math.min(maxW / img.width, maxH / img.height);
+    const w = Math.max(1, Math.round(img.width * sc)), h = Math.max(1, Math.round(img.height * sc));
+    if (cv.width !== w || cv.height !== h) { cv.width = w; cv.height = h; }
+    const ctx = cv.getContext("2d", { willReadFrequently: true });
+    ctx.drawImage(img, 0, 0, w, h);
+    return ctx;
+  };
+
+  useEffect(() => {
+    if (!hasImg) return;
+    const ctx = drawBase();
+    if (ctx && picked) {
+      ctx.lineWidth = 4; ctx.strokeStyle = "#fff"; ctx.beginPath(); ctx.arc(picked.x, picked.y, 13, 0, 7); ctx.stroke();
+      ctx.lineWidth = 2; ctx.strokeStyle = "#111"; ctx.beginPath(); ctx.arc(picked.x, picked.y, 15, 0, 7); ctx.stroke();
+      ctx.fillStyle = picked.hex; ctx.beginPath(); ctx.arc(picked.x, picked.y, 10, 0, 7); ctx.fill();
+    }
+  }, [hasImg, picked, open]);
+
+  const onFile = (e) => {
+    const f = e.target.files && e.target.files[0];
+    if (!f) return;
+    const url = URL.createObjectURL(f);
+    const img = new Image();
+    img.onload = () => { imgRef.current = img; setPicked(null); setHasImg(true); URL.revokeObjectURL(url); };
+    img.src = url;
+    e.target.value = "";
+  };
+
+  const pick = (e) => {
+    const cv = canvasRef.current;
+    if (!cv || !imgRef.current) return;
+    const rect = cv.getBoundingClientRect();
+    const x = clamp(Math.round((e.clientX - rect.left) * cv.width / rect.width), 0, cv.width - 1);
+    const y = clamp(Math.round((e.clientY - rect.top) * cv.height / rect.height), 0, cv.height - 1);
+    const ctx = drawBase(); // baca piksel dari gambar bersih (tanpa penanda)
+    const x0 = clamp(x - 2, 0, cv.width - 5), y0 = clamp(y - 2, 0, cv.height - 5);
+    const d = ctx.getImageData(x0, y0, Math.min(5, cv.width), Math.min(5, cv.height)).data;
+    let r = 0, g = 0, b = 0, n = d.length / 4;
+    for (let i = 0; i < d.length; i += 4) { r += d[i]; g += d[i + 1]; b += d[i + 2]; }
+    setPicked({ x, y, hex: rgbToHex(r / n, g / n, b / n) });
+  };
+
+  if (!open) return null;
+  const allLocked = locks.every(Boolean);
+  return (
+    <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50 sm:items-center" onClick={onClose}>
+      <div className="slide-up max-h-[92vh] w-full max-w-lg overflow-y-auto rounded-t-3xl bg-white p-4 shadow-2xl sm:rounded-3xl" onClick={(e) => e.stopPropagation()}>
+        <div className="flex items-center justify-between">
+          <h2 className="flex items-center gap-2 text-base font-extrabold"><Icon name="camera" size={18} /> {tr("Scan colors from a photo")}</h2>
+          <button onClick={onClose} aria-label={tr("Close")} className="rounded-full bg-stone-100 p-2"><Icon name="x" size={16} /></button>
+        </div>
+        <p className="mt-1 text-xs text-stone-500">{tr("Upload a photo of a top or hijab, then tap anywhere to pick its true color.")}</p>
+
+        <label className="mt-3 flex cursor-pointer items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-stone-300 py-3 text-sm font-bold text-stone-600 hover:bg-stone-50">
+          <Icon name="image" size={18} /> {hasImg ? tr("Change photo") : tr("Choose a photo from your gallery")}
+          <input type="file" accept="image/*" className="hidden" onChange={onFile} />
+        </label>
+
+        {hasImg && (
+          <div className="mt-3 flex justify-center rounded-2xl bg-stone-100 p-2">
+            <canvas ref={canvasRef} className="max-w-full cursor-crosshair rounded-xl" style={{ touchAction: "none" }}
+              onPointerDown={(e) => { e.currentTarget.setPointerCapture(e.pointerId); pick(e); }}
+              onPointerMove={(e) => e.buttons > 0 && pick(e)} />
+          </div>
+        )}
+
+        {hasImg && (
+          <div className="mt-3 flex items-center gap-3 rounded-2xl bg-stone-50 p-3">
+            <div className="fade-bg h-12 w-12 shrink-0 rounded-xl ring-1 ring-black/10" style={{ backgroundColor: picked ? picked.hex : "#f3e4e8" }} />
+            <div className="leading-tight">
+              <p className="font-mono text-base font-bold">{picked ? picked.hex : tr("Tap the photo…")}</p>
+              {picked && <p className="text-xs text-stone-500">{colorName(picked.hex)} · {groupLabel(describe(picked.hex).g)}</p>}
+            </div>
+          </div>
+        )}
+
+        <p className="mt-3 text-xs font-bold text-stone-500">{tr("Apply to slot")}</p>
+        <div className="mt-1.5 flex flex-wrap gap-1.5">
+          {SLOTS.map((s, i) => (
+            <button key={s.key} disabled={locks[i]} onClick={() => setTarget(i)}
+              className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-bold transition ${target === i && !locks[i] ? "bg-stone-900 text-white" : "bg-stone-100 text-stone-600"} ${locks[i] ? "opacity-40" : ""}`}>
+              {locks[i] && <Icon name="lock" size={11} />} {s.short}
+            </button>
+          ))}
+        </div>
+        <button disabled={!picked || allLocked || locks[target]} onClick={() => { onApply(target, picked.hex); onClose(); }}
+          className="mt-4 w-full rounded-2xl bg-rose-500 hover:bg-rose-600 py-3 text-sm font-extrabold text-white shadow transition active:scale-95 disabled:opacity-40">
+          {tr("Apply color to {slot}", { slot: SLOTS[target].short })}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+/* ---------- Pilih banyak (checkbox + pilih semua + hapus) ---------- */
+function Box({ checked, partial }) {
+  return (
+    <span className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-md border-2 transition ${checked || partial ? "border-rose-500 bg-rose-500 text-white" : "border-stone-300 bg-white"}`}>
+      {checked ? <Icon name="check" size={13} /> : partial ? <span className="h-0.5 w-2.5 rounded bg-white" /> : null}
+    </span>
+  );
+}
+
+function SelectBar({ total, count, busy, onToggleAll, onDelete, onCancel }) {
+  const [confirm, setConfirm] = useState(false);
+  useEffect(() => { setConfirm(false); }, [count]);
+  useEffect(() => { if (!confirm) return; const t = setTimeout(() => setConfirm(false), 3000); return () => clearTimeout(t); }, [confirm]);
+  const all = total > 0 && count === total;
+  return (
+    <div className="flex flex-wrap items-center gap-x-3 gap-y-2 rounded-2xl bg-white p-2.5 ring-1 ring-stone-200">
+      <button onClick={onToggleAll} role="checkbox" aria-checked={all} className="flex items-center gap-2 text-xs font-bold text-stone-700">
+        <Box checked={all} partial={count > 0 && !all} /> {tr("Select all")}
+      </button>
+      <span className="text-xs text-stone-500">{tr("{n} selected", { n: count })}</span>
+      <span className="ml-auto flex gap-2">
+        <button disabled={!count || busy} onClick={() => (confirm ? (setConfirm(false), onDelete()) : setConfirm(true))}
+          className={`flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-bold transition active:scale-95 disabled:opacity-40 ${confirm ? "bg-red-600 text-white" : "bg-red-50 text-red-600"}`}>
+          <Icon name="trash" size={14} /> {busy ? tr("Deleting…") : confirm ? tr("Really delete {n}?", { n: count }) : tr("Delete ({n})", { n: count })}
+        </button>
+        <button onClick={onCancel} className="rounded-xl bg-stone-100 px-3 py-2 text-xs font-bold text-stone-600">{tr("Cancel")}</button>
+      </span>
+    </div>
+  );
+}
+
+/* ---------- Lemari Digital ---------- */
+const VIEW_KEY = "ootd-match-mix-lab:view:v1";
+const SORTS = [["new", "Newest"], ["old", "Oldest"], ["high", "Highest score"], ["low", "Lowest score"]];
+const FILTERS = ["Semua", ...TAGS, "Tanpa tag"];
+const itemTs = (it) => { if (it.ts) return it.ts; const n = parseInt(it.id, 36); return Number.isFinite(n) && n > 1e12 ? n : 0; };
+function loadView() {
+  try {
+    const v = JSON.parse(localStorage.getItem(VIEW_KEY) || "{}");
+    return { filter: FILTERS.includes(v.filter) ? v.filter : "Semua", sort: SORTS.some((x) => x[0] === v.sort) ? v.sort : "new" };
+  } catch { return { filter: "Semua", sort: "new" }; }
+}
+
+function Wardrobe({ items, onUse, onDelete, onDeleteMany, onTag }) {
+  const [confirmId, setConfirmId] = useState(null);
+  const [selMode, setSelMode] = useState(false);
+  const [sel, setSel] = useState(() => new Set());
+  const [busy, setBusy] = useState(false);
+  const [view, setView] = useState(loadView);
+  useEffect(() => { try { localStorage.setItem(VIEW_KEY, JSON.stringify(view)); } catch {} }, [view]);
+
+  const counts = useMemo(() => {
+    const c = { Semua: items.length, "Tanpa tag": items.filter((i) => !i.tag).length };
+    TAGS.forEach((t) => { c[t] = items.filter((i) => i.tag === t).length; });
+    return c;
+  }, [items]);
+
+  const visible = useMemo(() => {
+    const f = items.filter((i) => view.filter === "Semua" || (view.filter === "Tanpa tag" ? !i.tag : i.tag === view.filter));
+    const by = { new: (a, b) => itemTs(b) - itemTs(a), old: (a, b) => itemTs(a) - itemTs(b), high: (a, b) => b.score - a.score || itemTs(b) - itemTs(a), low: (a, b) => a.score - b.score || itemTs(b) - itemTs(a) }[view.sort];
+    return [...f].sort(by);
+  }, [items, view]);
+
+  useEffect(() => {   // buang pilihan yang tidak lagi terlihat (dihapus / terfilter)
+    setSel((prev) => { const next = new Set([...prev].filter((id) => visible.some((i) => i.id === id))); return next.size === prev.size ? prev : next; });
+    if (!items.length) setSelMode(false);
+  }, [visible, items.length]);
+
+  const toggle = (id) => setSel((prev) => { const n = new Set(prev); n.has(id) ? n.delete(id) : n.add(id); return n; });
+  const exitSel = () => { setSelMode(false); setSel(new Set()); };
+  const deleteSelected = async () => {
+    setBusy(true);
+    try { if (await onDeleteMany([...sel])) exitSel(); } finally { setBusy(false); }
+  };
+
+  if (!items.length)
+    return (
+      <div className="slide-up mt-16 flex flex-col items-center text-center text-stone-500">
+        <div className="mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-stone-100"><Icon name="archive" size={36} /></div>
+        <p className="font-bold text-stone-700">{tr("Your wardrobe is empty")}</p>
+        <p className="mt-1 max-w-xs text-sm">{tr("Put together an outfit in Mix Lab, then tap Save to keep it here.")}</p>
+      </div>
+    );
+  return (
+    <div className="space-y-3">
+      {/* filter tag */}
+      <div className="no-scrollbar -mx-4 flex gap-2 overflow-x-auto px-4 py-0.5">
+        {FILTERS.map((f) => (
+          <button key={f} onClick={() => setView((v) => ({ ...v, filter: f }))} aria-pressed={view.filter === f}
+            className={`shrink-0 rounded-full px-3.5 py-2 text-xs font-bold transition ${view.filter === f ? "bg-stone-900 text-white" : "bg-white text-stone-600 ring-1 ring-stone-200"}`}>
+            {filterLabel(f)} <span className="opacity-60">{counts[f]}</span>
+          </button>
+        ))}
+      </div>
+
+      {selMode ? (
+        <div className="sticky top-[56px] z-10">
+          <SelectBar total={visible.length} count={sel.size} busy={busy}
+            onToggleAll={() => setSel(sel.size === visible.length ? new Set() : new Set(visible.map((i) => i.id)))}
+            onDelete={deleteSelected} onCancel={exitSel} />
+        </div>
+      ) : (
+        <div className="flex items-center justify-between gap-2">
+          <label className="flex items-center gap-2 text-xs font-semibold text-stone-500">
+            {tr("Sort by")}
+            <select value={view.sort} onChange={(e) => setView((v) => ({ ...v, sort: e.target.value }))}
+              className="rounded-xl bg-white py-2 pl-3 pr-2 text-xs font-bold text-stone-700 ring-1 ring-stone-200">
+              {SORTS.map(([k, l]) => <option key={k} value={k}>{tr(l)}</option>)}
+            </select>
+          </label>
+          <button onClick={() => setSelMode(true)} className="flex items-center gap-1.5 rounded-xl bg-white px-3 py-2 text-xs font-bold text-stone-600 ring-1 ring-stone-200 transition active:scale-95">
+            <Icon name="check" size={14} /> {tr("Select")}
+          </button>
+        </div>
+      )}
+
+      {visible.length === 0 && (
+        <div className="slide-up rounded-3xl bg-white p-6 text-center text-sm text-stone-500 ring-1 ring-stone-200">
+          {tr("No outfits match the “{f}” filter.", { f: filterLabel(view.filter) })}
+          <button onClick={() => setView((v) => ({ ...v, filter: "Semua" }))} className="mt-3 block w-full rounded-2xl bg-stone-900 py-2.5 text-xs font-bold text-white">{tr("Show all")}</button>
+        </div>
+      )}
+
+      {visible.map((it) => {
+        const t = scoreTone(it.score);
+        const checked = sel.has(it.id);
+        return (
+          <div key={it.id} onClick={selMode ? () => toggle(it.id) : undefined}
+            className={`slide-up rounded-3xl bg-white p-3.5 shadow-sm ring-1 transition ${selMode ? "cursor-pointer" : ""} ${checked ? "ring-2 ring-rose-400" : "ring-stone-200"}`}>
+            {selMode && <div className="mb-2.5 flex items-center gap-2 text-xs font-bold text-stone-600"><Box checked={checked} /> {checked ? tr("Selected") : tr("Select this outfit")}</div>}
+            <div className="flex gap-3">
+              <div className="pointer-events-none h-[148px] w-[70px] shrink-0 rounded-2xl bg-[#f7e8ec] p-1">
+                <Mannequin hexes={it.colors} active={-1} />
+              </div>
+              <div className="flex min-w-0 flex-1 flex-col">
+                <div className="flex items-start justify-between gap-2">
+                  <div className="min-w-0">
+                    <p className="truncate font-bold text-stone-800">{vibeText(it.vibe)}</p>
+                    <p className="text-xs text-stone-500">{itemTs(it) ? fmtDate(itemTs(it)) : it.date}{it.tag ? <span className="ml-2 rounded-full bg-stone-100 px-2 py-0.5 text-[11px] font-semibold text-stone-500">{tagLabel(it.tag)}</span> : null}</p>
+                  </div>
+                  <span className="shrink-0 rounded-full px-2.5 py-1 text-sm font-extrabold" style={{ color: t.c, backgroundColor: t.bg }}>{it.score}%</span>
+                </div>
+                <div className="mt-2.5 space-y-1">
+                  {it.colors.map((h, i) => (
+                    <div key={i} className="flex items-center gap-2 text-[11px] text-stone-500">
+                      <span className="h-4 w-4 shrink-0 rounded-full ring-1 ring-black/10" style={{ backgroundColor: h }} />
+                      <span className="w-14 shrink-0">{SLOTS[i].short}</span><span className="font-mono">{h}</span>
+                    </div>
+                  ))}
+                </div>
+                {!selMode && (
+                  <div className="mt-auto flex gap-2 pt-2.5">
+                    <button onClick={() => onUse(it)} className="flex h-10 flex-1 items-center justify-center gap-1.5 rounded-xl bg-stone-900 text-xs font-bold text-white transition active:scale-95">
+                      <Icon name="redo" size={14} /> {tr("Use")}
+                    </button>
+                    <button onClick={() => {
+                        if (confirmId === it.id) { onDelete(it.id); setConfirmId(null); }
+                        else { setConfirmId(it.id); setTimeout(() => setConfirmId((c) => (c === it.id ? null : c)), 2500); }
+                      }}
+                      aria-label={confirmId === it.id ? tr("Confirm delete") : tr("Delete outfit")}
+                      className={`flex h-10 items-center justify-center gap-1.5 rounded-xl px-3 text-xs font-bold transition active:scale-95 ${confirmId === it.id ? "bg-red-600 text-white" : "bg-red-50 text-red-600"}`}>
+                      <Icon name="trash" size={14} /> {confirmId === it.id ? tr("Sure?") : ""}
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+            {!selMode && (
+              <div className="mt-3 flex flex-wrap gap-1.5">
+                {TAGS.map((tag) => (
+                  <button key={tag} onClick={() => onTag(it.id, it.tag === tag ? null : tag)}
+                    className={`rounded-full px-3 py-1.5 text-xs font-semibold transition ${it.tag === tag ? "bg-stone-800 text-white" : "bg-stone-100 text-stone-600 hover:bg-stone-200"}`}>{tagLabel(tag)}</button>
+                ))}
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+/* =========================================================
+   6. APP
+   ========================================================= */
+/* ---------- Supabase (opsional: kosongkan = mode lokal saja) ---------- */
+const SUPABASE_URL = "https://yftyzdmfgdpnpvunqhog.supabase.co";       // contoh: "https://abcdxyz.supabase.co"
+const SUPABASE_ANON_KEY = "sb_publishable_X2Eg_lKOz9TjbdvwAcLO_A_uwcdFdj2";  // anon / publishable key (aman dipublikasikan, dilindungi RLS)
+const sb = SUPABASE_URL && SUPABASE_ANON_KEY && window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+
+const fmtDate = (d) => new Date(d).toLocaleDateString(LANG === "id" ? "id-ID" : "en-US", { day: "numeric", month: "short", year: "numeric" });
+const rowToItem = (r) => ({ id: r.id, colors: [r.hijab_hex, r.top_hex, r.bottom_hex], score: r.score, vibe: r.vibe, tag: r.tag, date: fmtDate(r.created_at), ts: Date.parse(r.created_at) });
+const itemToRow = (it) => ({ hijab_hex: it.colors[0], top_hex: it.colors[1], bottom_hex: it.colors[2], score: it.score, vibe: it.vibe, tag: it.tag });
+const rowToColor = (r) => ({ id: r.id, name: r.name, hex: r.hex });
+// Penanda "palet sengaja dikosongkan" (agar palet kosong tidak dianggap belum diubah)
+const EMPTY_MARK = "__kosong__";
+const PAL_KEY = "ootd-match-mix-lab:palettes:v1";
+const defaultPalette = () => COLORS.map((c) => ({ id: c.id, name: c.name, hex: c.hex }));
+const emptyPalState = () => ({ pal: Object.fromEntries(SLOTS.map((sl) => [sl.key, defaultPalette()])), custom: {} });
+function loadLocalPalState() {   // mode tanpa Supabase: palet pribadi disimpan di browser
+  const st = emptyPalState();
+  try {
+    const v = JSON.parse(localStorage.getItem(PAL_KEY) || "{}");
+    SLOTS.forEach((sl) => {
+      const list = (Array.isArray(v[sl.key]) ? v[sl.key] : []).map((c) => ({ id: c.id, name: c.name || c.hex, hex: normHex(c.hex) })).filter((c) => c.hex);
+      if (Array.isArray(v[sl.key])) { st.pal[sl.key] = list; st.custom[sl.key] = true; }
+    });
+  } catch {}
+  return st;
+}
+const must = ({ data, error }) => { if (error) throw error; return data; };
+
+const DB = {
+  // Fungsi 1: akun pengguna (profil + waktu login terakhir)
+  touchProfile: async (u) => must(await sb.from("profiles").upsert({
+    id: u.id, display_name: (u.user_metadata && (u.user_metadata.full_name || u.user_metadata.name)) || u.email,
+    avatar_url: (u.user_metadata && u.user_metadata.avatar_url) || null, last_login_at: new Date().toISOString(),
+  })),
+  // Fungsi 2: kombinasi outfit
+  loadOutfits: async () => must(await sb.from("outfits").select("*").order("created_at", { ascending: false })).map(rowToItem),
+  addOutfit: async (it) => rowToItem(must(await sb.from("outfits").insert(itemToRow(it)).select().single())),
+  addMany: async (items) => must(await sb.from("outfits").insert(items.map(itemToRow))),
+  removeOutfits: async (ids) => must(await sb.from("outfits").delete().in("id", ids)),
+  removeOutfit: async (id) => must(await sb.from("outfits").delete().eq("id", id)),
+  setTag: async (id, tag) => must(await sb.from("outfits").update({ tag }).eq("id", id)),
+  // Fungsi 4: palet warna pribadi per slot (tambah / ubah / hapus)
+  loadPalettes: async () => {
+    const rows = must(await sb.from("user_palette_colors").select("*").order("sort_order").order("created_at"));
+    const out = {};
+    rows.forEach((r) => { out[r.slot] = out[r.slot] || []; if (r.name !== EMPTY_MARK) out[r.slot].push(rowToColor(r)); });
+    return out;
+  },
+  insertPalette: async (slot, items) => must(await sb.from("user_palette_colors").insert(items.map((i) => ({ ...i, slot }))).select())
+    .sort((a, b) => a.sort_order - b.sort_order),
+  updatePalette: async (id, patch) => must(await sb.from("user_palette_colors").update(patch).eq("id", id)),
+  deletePaletteMany: async (ids) => must(await sb.from("user_palette_colors").delete().in("id", ids)),
+  clearEmptyMark: async (uid, slot) => must(await sb.from("user_palette_colors").delete().eq("user_id", uid).eq("slot", slot).eq("name", EMPTY_MARK)),
+  deletePalette: async (id) => must(await sb.from("user_palette_colors").delete().eq("id", id)),
+  resetPalette: async (uid, slot) => must(await sb.from("user_palette_colors").delete().eq("user_id", uid).eq("slot", slot)),
+  // Fungsi 3: warna default per pengguna (3 baris: hijab, top, bottom)
+  loadDefaults: async () => {
+    const m = Object.fromEntries(must(await sb.from("user_defaults").select("slot,hex")).map((r) => [r.slot, r.hex]));
+    const arr = SLOTS.map((s) => m[s.key]);
+    return arr.every(Boolean) ? arr : null;
+  },
+  saveDefaults: async (uid, hexes) => must(await sb.from("user_defaults").upsert(
+    SLOTS.map((s, i) => ({ user_id: uid, slot: s.key, hex: hexes[i] })), { onConflict: "user_id,slot" })),
+  resetDefaults: async (uid) => must(await sb.from("user_defaults").delete().eq("user_id", uid)),
+};
+
+function loadWardrobe() {
+  try {
+    const v = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+    if (!Array.isArray(v)) return [];
+    return v.map((it) => {
+      // migrasi: id preset lama -> HEX, dan outfit 5 elemen lama -> 3 elemen pertama
+      const colors = (it.colors || []).slice(0, 3).map((c) => normHex(c) || (BY_ID[c] && BY_ID[c].hex));
+      return colors.length === 3 && colors.every(Boolean) ? { ...it, colors } : null;
+    }).filter(Boolean);
+  } catch { return []; }
+}
+
+/* ---------- Modal akun: masuk / daftar (email + password) & keluar ---------- */
+function AuthModal({ open, onClose, user, onSignOut }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [mode, setMode] = useState("masuk");
+  const [msg, setMsg] = useState(null);
+  const [busy, setBusy] = useState(false);
+  useEffect(() => { if (open) setMsg(null); }, [open, mode]);
+  if (!open) return null;
+
+  const redirect = window.location.origin + window.location.pathname;
+  const isHttp = /^https?:$/.test(window.location.protocol);
+  const explain = (e) => {
+    const m = (e && e.message) || "";
+    if (/invalid login/i.test(m)) return tr("Wrong email or password.");
+    if (/not confirmed/i.test(m)) return tr("Email not confirmed. Check your inbox, or turn off \"Confirm email\" in the Supabase dashboard.");
+    if (/already registered|already been registered/i.test(m)) return tr("This email is already registered. Please sign in.");
+    if (/rate limit/i.test(m)) return tr("Supabase email rate limit reached. Wait a moment, or turn off \"Confirm email\" in the Supabase dashboard.");
+    if (/password/i.test(m)) return tr("Password must be at least 6 characters.");
+    return m || tr("Something went wrong.");
+  };
+  const submit = async () => {
+    if (!/^\S+@\S+\.\S+$/.test(email)) return setMsg({ t: "err", m: tr("Enter a valid email address.") });
+    if (password.length < 6) return setMsg({ t: "err", m: tr("Password must be at least 6 characters.") });
+    setBusy(true); setMsg(null);
+    try {
+      if (mode === "masuk") {
+        const { error } = await sb.auth.signInWithPassword({ email, password });
+        if (error) setMsg({ t: "err", m: explain(error) });
+      } else {
+        const { data, error } = await sb.auth.signUp({ email, password, options: isHttp ? { emailRedirectTo: redirect } : {} });
+        if (error) setMsg({ t: "err", m: explain(error) });
+        else if (!data.session) setMsg({ t: "ok", m: tr("Account created. Check your email to confirm, then sign in.") });
+      }
+    } finally { setBusy(false); }
+  };
+  const name = user && ((user.user_metadata && (user.user_metadata.full_name || user.user_metadata.name)) || user.email);
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50 sm:items-center" onClick={onClose}>
+      <div className="slide-up w-full max-w-md rounded-t-3xl bg-white p-5 shadow-2xl sm:rounded-3xl" onClick={(e) => e.stopPropagation()}>
+        <div className="flex items-center justify-between">
+          <h2 className="flex items-center gap-2 text-base font-extrabold"><Icon name="user" size={18} /> {user ? tr("My account") : tr("Sign in")}</h2>
+          <button onClick={onClose} aria-label={tr("Close")} className="rounded-full bg-stone-100 p-2"><Icon name="x" size={16} /></button>
+        </div>
+
+        {!sb ? (
+          <p className="mt-3 rounded-2xl bg-amber-50 p-3 text-xs leading-relaxed text-amber-900 ring-1 ring-amber-200">
+            {tr("Supabase is not configured yet. Set SUPABASE_URL and SUPABASE_ANON_KEY at the top of the script. Until then, data is stored locally in this browser.")}
+          </p>
+        ) : user ? (
+          <div className="mt-4">
+            <p className="text-sm font-bold">{name}</p>
+            <p className="text-xs text-stone-500">{user.email}</p>
+            <p className="mt-2 text-xs text-stone-500">{tr("Your wardrobe and default colors are saved to your account and follow you to every device.")}</p>
+            <button onClick={onSignOut} className="mt-4 flex w-full items-center justify-center gap-2 rounded-2xl bg-stone-900 py-3 text-sm font-bold text-white transition active:scale-95">
+              <Icon name="logout" size={16} /> {tr("Sign out")}
+            </button>
+          </div>
+        ) : (
+          <div className="mt-3">
+            <div className="mb-3 grid grid-cols-2 gap-1 rounded-xl bg-stone-100 p-1">
+              {[["masuk", tr("Sign in")], ["daftar", tr("Sign up")]].map(([k, l]) => (
+                <button key={k} onClick={() => setMode(k)}
+                  className={`rounded-lg py-1.5 text-xs font-bold transition ${mode === k ? "bg-white text-stone-900 shadow" : "text-stone-500"}`}>{l}</button>
+              ))}
+            </div>
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} onKeyDown={(e) => e.key === "Enter" && submit()}
+              placeholder={tr("name@email.com")} autoComplete="email"
+              className="w-full rounded-2xl bg-stone-100 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-rose-300" />
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} onKeyDown={(e) => e.key === "Enter" && submit()}
+              placeholder={tr("Password (min. 6 characters)")} autoComplete={mode === "masuk" ? "current-password" : "new-password"}
+              className="mt-2 w-full rounded-2xl bg-stone-100 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-rose-300" />
+            <button onClick={submit} disabled={busy}
+              className="mt-3 w-full rounded-2xl bg-rose-500 hover:bg-rose-600 py-3 text-sm font-extrabold text-white shadow transition active:scale-95 disabled:opacity-60">
+              {busy ? tr("Processing…") : mode === "masuk" ? tr("Sign in") : tr("Create account")}
+            </button>
+          </div>
+        )}
+        {msg && <p className={`mt-3 rounded-2xl p-3 text-xs leading-relaxed ${msg.t === "ok" ? "bg-green-50 text-green-700" : "bg-red-50 text-red-600"}`}>{msg.m}</p>}
+      </div>
+    </div>
+  );
+}
+
+/* ---------- Kartu warna awal (default) per pengguna ---------- */
+function DefaultsCard({ user, defaults, onSave, onApply, onReset, onLogin }) {
+  const shown = defaults || DEFAULT_HEX;
+  return (
+    <div>
+      <p className="text-xs text-stone-500">{tr("The colors shown when you open the app ({which}).", { which: defaults ? tr("yours") : tr("built-in") })}</p>
+      <div className="mt-2.5 flex gap-2">
+        {SLOTS.map((sl, i) => (
+          <div key={sl.key} className="flex flex-1 items-center gap-2 rounded-2xl bg-stone-50 p-1.5">
+            <span className="h-7 w-7 shrink-0 rounded-full ring-1 ring-black/10" style={{ backgroundColor: shown[i] }} />
+            <span className="min-w-0 leading-tight"><span className="block truncate text-[11px] font-semibold text-stone-400">{sl.short}</span><span className="block truncate font-mono text-[11px]">{shown[i]}</span></span>
+          </div>
+        ))}
+      </div>
+      <div className="mt-3 flex flex-wrap gap-2">
+        {user ? (
+          <button onClick={onSave} className="flex-1 rounded-2xl bg-stone-900 px-3 py-2.5 text-xs font-bold text-white transition active:scale-95">{tr("Make this combination my default")}</button>
+        ) : (
+          <button onClick={onLogin} className="flex-1 rounded-2xl bg-stone-900 px-3 py-2.5 text-xs font-bold text-white transition active:scale-95">{tr("Sign in to save defaults")}</button>
+        )}
+        <button onClick={onApply} className="rounded-2xl bg-stone-100 px-3 py-2.5 text-xs font-bold text-stone-700 transition active:scale-95">{tr("Apply")}</button>
+        {defaults && <button onClick={onReset} className="rounded-2xl bg-red-50 px-3 py-2.5 text-xs font-bold text-red-600 transition active:scale-95">{tr("Reset to default")}</button>}
+      </div>
+    </div>
+  );
+}
+
+/* ---------- Modal: ubah palet warna pribadi per slot ---------- */
+function PaletteModal({ slot, list, isCustom, onClose, onAdd, onUpdate, onRemove, onRemoveMany, onReset }) {
+  const [draft, setDraft] = useState({ index: null, name: "", hex: "#C2185B" });
+  const [hexText, setHexText] = useState("#C2185B");
+  const [err, setErr] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [confirmReset, setConfirmReset] = useState(false);
+  const [selMode, setSelMode] = useState(false);
+  const [sel, setSel] = useState(() => new Set());
+  useEffect(() => { setSelMode(false); setSel(new Set()); }, [slot && slot.key]);
+  useEffect(() => { setSel(new Set()); }, [list.length]);
+  useEffect(() => { setDraft({ index: null, name: "", hex: "#C2185B" }); setHexText("#C2185B"); setErr(""); setConfirmReset(false); }, [slot && slot.key]);
+  if (!slot) return null;
+
+  const setHex = (v) => { setHexText(v); const h = normHex(v); if (h) setDraft((d) => ({ ...d, hex: h })); };
+  const startEdit = (i) => { setDraft({ index: i, name: list[i].name, hex: list[i].hex }); setHexText(list[i].hex); setErr(""); };
+  const cancelEdit = () => { setDraft({ index: null, name: "", hex: "#C2185B" }); setHexText("#C2185B"); setErr(""); };
+  const run = async (fn) => { setBusy(true); try { return await fn(); } finally { setBusy(false); } };
+  const toggleSel = (i) => setSel((p) => { const n = new Set(p); n.has(i) ? n.delete(i) : n.add(i); return n; });
+  const exitSel = () => { setSelMode(false); setSel(new Set()); };
+  const deleteSelected = async () => { if (await run(() => onRemoveMany([...sel]))) exitSel(); };
+
+  const submit = async () => {
+    const hex = normHex(hexText);
+    if (!hex) return setErr(tr("Invalid HEX code. Example: #C2185B"));
+    const name = draft.name.trim() || colorName(hex).replace(/^≈ /, "");
+    setErr("");
+    const ok = await run(() => (draft.index === null ? onAdd({ name, hex }) : onUpdate(draft.index, { name, hex })));
+    if (ok) cancelEdit();
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50 sm:items-center" onClick={onClose}>
+      <div className="slide-up max-h-[92vh] w-full max-w-md overflow-y-auto rounded-t-3xl bg-white p-5 shadow-2xl sm:rounded-3xl" onClick={(e) => e.stopPropagation()}>
+        <div className="flex items-center justify-between">
+          <h2 className="flex items-center gap-2 text-base font-extrabold"><Icon name={slot.icon} size={18} /> {tr("{slot} palette", { slot: slot.short })}</h2>
+          <button onClick={onClose} aria-label={tr("Close")} className="rounded-full bg-stone-100 p-2"><Icon name="x" size={16} /></button>
+        </div>
+        <p className="mt-1 text-xs text-stone-500">
+          {isCustom ? tr("This is your personal palette for this slot.") : tr("Currently using the default palette. Your first change creates your own copy.")}
+        </p>
+
+        <div className="mt-3">
+          {selMode ? (
+            <SelectBar total={list.length} count={sel.size} busy={busy}
+              onToggleAll={() => setSel(sel.size === list.length ? new Set() : new Set(list.map((_, i) => i)))}
+              onDelete={deleteSelected} onCancel={exitSel} />
+          ) : (
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-semibold text-stone-500">{tr("{n} colors", { n: list.length })}</span>
+              <button disabled={!list.length} onClick={() => setSelMode(true)} className="flex items-center gap-1.5 rounded-xl bg-stone-100 px-3 py-1.5 text-xs font-bold text-stone-600 disabled:opacity-40">
+                <Icon name="check" size={13} /> {tr("Select")}
+              </button>
+            </div>
+          )}
+        </div>
+
+        <div className="mt-2 max-h-[34vh] space-y-1.5 overflow-y-auto pr-1">
+          {list.length === 0 && <p className="rounded-2xl bg-stone-50 p-4 text-center text-xs text-stone-500">{tr("The palette is empty. Add a new color below, or restore the default palette.")}</p>}
+          {list.map((c, i) => (
+            <div key={c.id + i} onClick={selMode ? () => toggleSel(i) : undefined}
+              className={`flex items-center gap-2.5 rounded-2xl p-1.5 ring-1 ${selMode ? "cursor-pointer" : ""} ${sel.has(i) ? "bg-rose-50 ring-rose-300" : draft.index === i ? "bg-rose-50 ring-rose-300" : "bg-stone-50 ring-stone-100"}`}>
+              {selMode && <span className="pl-1"><Box checked={sel.has(i)} /></span>}
+              <span className="h-8 w-8 shrink-0 rounded-full ring-1 ring-black/10" style={{ backgroundColor: c.hex }} />
+              <span className="min-w-0 flex-1 leading-tight"><span className="block truncate text-sm font-bold">{c.name}</span><span className="block font-mono text-[10px] text-stone-500">{c.hex}</span></span>
+              {!selMode && <>
+                <button disabled={busy} onClick={() => startEdit(i)} aria-label={tr("Edit {name}", { name: c.name })} className="rounded-full bg-white p-2 text-stone-600 ring-1 ring-stone-200"><Icon name="pencil" size={14} /></button>
+                <button disabled={busy} onClick={() => run(() => onRemove(i))} aria-label={tr("Delete {name}", { name: c.name })} className="rounded-full bg-white p-2 text-red-500 ring-1 ring-stone-200"><Icon name="trash" size={14} /></button>
+              </>}
+            </div>
+          ))}
+        </div>
+
+        {!selMode && <div className="mt-3 rounded-2xl bg-stone-50 p-3 ring-1 ring-stone-100">
+          <p className="text-xs font-bold text-stone-600">{draft.index === null ? tr("Add a new color") : tr("Edit: {name}", { name: list[draft.index] ? list[draft.index].name : "" })}</p>
+          <div className="mt-2 flex items-center gap-2">
+            <label className="relative h-10 w-10 shrink-0 cursor-pointer overflow-hidden rounded-full ring-2 ring-white shadow" style={{ backgroundColor: draft.hex }}>
+              <input type="color" value={draft.hex.toLowerCase()} onChange={(e) => setHex(e.target.value.toUpperCase())} className="absolute inset-0 h-full w-full opacity-0" aria-label={tr("Pick a color")} />
+            </label>
+            <input value={draft.name} onChange={(e) => setDraft((d) => ({ ...d, name: e.target.value }))} maxLength={24} placeholder={tr("Color name")}
+              className="min-w-0 flex-1 rounded-xl bg-white px-3 py-2 text-sm outline-none ring-1 ring-stone-200 focus:ring-2 focus:ring-rose-300" />
+            <input value={hexText} onChange={(e) => setHex(e.target.value)} maxLength={7} spellCheck={false}
+              className="w-[88px] rounded-xl bg-white px-2 py-2 font-mono text-sm uppercase outline-none ring-1 ring-stone-200 focus:ring-2 focus:ring-rose-300" aria-label={tr("HEX code")} />
+          </div>
+          {err && <p className="mt-2 text-xs text-red-600">{err}</p>}
+          <div className="mt-2.5 flex gap-2">
+            <button onClick={submit} disabled={busy} className="flex flex-1 items-center justify-center gap-1.5 rounded-xl bg-stone-900 py-2.5 text-sm font-bold text-white transition active:scale-95 disabled:opacity-60">
+              <Icon name={draft.index === null ? "plus" : "save"} size={15} /> {busy ? tr("Saving…") : draft.index === null ? tr("Add") : tr("Save changes")}
+            </button>
+            {draft.index !== null && <button onClick={cancelEdit} className="rounded-xl bg-white px-4 text-sm font-bold text-stone-600 ring-1 ring-stone-200">{tr("Cancel")}</button>}
+          </div>
+        </div>}
+
+        <div className="mt-3 flex gap-2">
+          {isCustom && (
+            <button disabled={busy} onClick={() => { if (!confirmReset) { setConfirmReset(true); setTimeout(() => setConfirmReset(false), 2500); } else { setConfirmReset(false); run(() => onReset()); } }}
+              className={`rounded-2xl px-4 py-2.5 text-sm font-bold transition active:scale-95 ${confirmReset ? "bg-red-600 text-white" : "bg-red-50 text-red-600"}`}>
+              {confirmReset ? tr("Restore default?") : tr("Restore default")}
+            </button>
+          )}
+          <button onClick={onClose} className="flex-1 rounded-2xl bg-rose-50 py-2.5 text-sm font-bold text-rose-600">{tr("Done")}</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function App() {
+  const [tab, setTab] = useState("lab");
+  const [hexes, setHexes] = useState(DEFAULT_HEX);
+  const [locks, setLocks] = useState([false, false, false]);
+  const [active, setActive] = useState(1);
+  const [wardrobe, setWardrobe] = useState(loadWardrobe);
+  const [shuffling, setShuffling] = useState(false);
+  const [scanOpen, setScanOpen] = useState(false);
+  const [toast, setToast] = useState("");
+  const [user, setUser] = useState(null);
+  const [defaults, setDefaults] = useState(null);
+  const [authOpen, setAuthOpen] = useState(false);
+  const [syncing, setSyncing] = useState(false);
+  const [theme, setTheme] = useState(() => { try { return localStorage.getItem("ootd-match-mix-lab:theme") || "auto"; } catch { return "auto"; } });
+  const [lang, setLang] = useState(LANG);
+  const [, setTick] = useState(0);
+  const [history, setHistory] = useState({ past: [], future: [] });
+  const lastRef = useRef(DEFAULT_HEX);
+  const skipRef = useRef(false);
+  const [palState, setPalState] = useState(() => (sb ? emptyPalState() : loadLocalPalState()));
+  const [editSlot, setEditSlot] = useState(null);
+  const timers = useRef([]);
+  const uid = user ? user.id : null;
+
+  useEffect(() => () => timers.current.forEach(clearTimeout), []);
+
+  const an = useMemo(() => analyze(hexes), [hexes]);
+  const vibe = useMemo(() => getVibe(an), [an]);
+  const tip = useMemo(() => getTip(an, hexes), [an, hexes, lang]);
+  const tone = scoreTone(an.score);
+  const palArrays = useMemo(() => SLOTS.map((sl) => palState.pal[sl.key]), [palState]);
+  const fixes = useMemo(() => suggestFixes(hexes, locks, palArrays), [hexes, locks, palArrays]);
+
+  useEffect(() => { document.title = "PaduPadan for Hijabi"; document.documentElement.lang = lang; }, [lang]);
+  const toggleLang = () => { const next = LANG === "en" ? "id" : "en"; setLangGlobal(next); setLang(next); };
+
+  const applyTheme = (t) => {
+    const dark = t === "dark" || (t === "auto" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+    document.documentElement.classList.toggle("dark", dark);
+  };
+  const cycleTheme = () => {
+    const next = { auto: "light", light: "dark", dark: "auto" }[theme];
+    applyTheme(next); setTheme(next);
+    try { localStorage.setItem("ootd-match-mix-lab:theme", next); } catch {}
+    showToast({ auto: tr("Theme follows your device"), light: tr("Light theme"), dark: tr("Dark theme") }[next]);
+  };
+  useEffect(() => {   // mode otomatis: ikuti perubahan pengaturan perangkat
+    if (theme !== "auto") return;
+    const mq = window.matchMedia("(prefers-color-scheme: dark)");
+    const h = () => { applyTheme("auto"); setTick((n) => n + 1); };
+    mq.addEventListener("change", h);
+    return () => mq.removeEventListener("change", h);
+  }, [theme]);
+
+  const showToast = (m) => { setToast(m); timers.current.push(setTimeout(() => setToast(""), 2400)); };
+  const setColor = (i, hex) => hex && setHexes((p) => p.map((x, k) => (k === i ? hex : x)));
+  const toggleLock = (i) => setLocks((p) => p.map((x, k) => (k === i ? !x : x)));
+  const commitLocal = (list) => { setWardrobe(list); try { localStorage.setItem(STORAGE_KEY, JSON.stringify(list)); } catch {} };
+
+  /* Sesi login */
+  useEffect(() => {
+    if (!sb) return;
+    sb.auth.getSession().then(({ data }) => setUser(data.session ? data.session.user : null));
+    const { data } = sb.auth.onAuthStateChange((_e, session) => setUser(session ? session.user : null));
+    return () => data.subscription.unsubscribe();
+  }, []);
+
+  /* Saat pengguna masuk/keluar: muat lemari + warna default dari akun */
+  useEffect(() => {
+    if (!sb) return;
+    if (!uid) { setDefaults(null); setWardrobe(loadWardrobe()); setPalState(emptyPalState()); return; }
+    let cancelled = false;
+    (async () => {
+      setSyncing(true);
+      try {
+        DB.touchProfile(user).catch(() => {});
+        const local = loadWardrobe();
+        if (local.length) {   // pindahkan outfit lokal ke akun, sekali saja
+          await DB.addMany(local);
+          try { localStorage.removeItem(STORAGE_KEY); } catch {}
+          showToast(tr("{n} local outfits moved to your account", { n: local.length }));
+        }
+        const [list, defs, pals] = await Promise.all([DB.loadOutfits(), DB.loadDefaults(), DB.loadPalettes()]);
+        if (cancelled) return;
+        setWardrobe(list); setDefaults(defs);
+        const st = emptyPalState();
+        SLOTS.forEach((sl) => { if (pals[sl.key]) { st.pal[sl.key] = pals[sl.key]; st.custom[sl.key] = true; } });
+        setPalState(st);
+        if (defs) setHexes(defs);   // pengguna sudah punya default -> tampilkan; kalau belum, pakai bawaan
+        setAuthOpen(false);
+      } catch (e) { showToast(tr("Failed to load account data: {msg}", { msg: e.message })); }
+      finally { if (!cancelled) setSyncing(false); }
+    })();
+    return () => { cancelled = true; };
+  }, [uid]);
+
+  /* ---- Palet pribadi per slot: tambah / ubah / hapus / kembalikan bawaan ---- */
+  useEffect(() => {   // mode tanpa Supabase: simpan di browser
+    if (sb) return;
+    const out = {};
+    SLOTS.forEach((sl) => { if (palState.custom[sl.key]) out[sl.key] = palState.pal[sl.key]; });
+    try { localStorage.setItem(PAL_KEY, JSON.stringify(out)); } catch {}
+  }, [palState]);
+
+  const setSlotPal = (slot, list, custom) => setPalState((st) => ({ pal: { ...st.pal, [slot]: list }, custom: { ...st.custom, [slot]: custom } }));
+  // Perubahan pertama pada palet bawaan: salin dulu ke akun pengguna agar bisa diedit
+  const materialize = async (slot) => {
+    if (palState.custom[slot]) return palState.pal[slot];
+    let list = palState.pal[slot].map((c) => ({ ...c }));
+    if (uid) list = (await DB.insertPalette(slot, list.map((c, i) => ({ name: c.name, hex: c.hex, sort_order: i })))).map(rowToColor);
+    return list;
+  };
+  const palOp = async (fn) => { try { await fn(); return true; } catch (e) { showToast(tr("Failed to update palette: {msg}", { msg: e.message })); return false; } };
+  const addColor = (slot, { name, hex }) => palOp(async () => {
+    const list = await materialize(slot);
+    let item = { id: "c" + Date.now().toString(36), name, hex };
+    if (uid && list.length === 0) await DB.clearEmptyMark(uid, slot);
+    if (uid) item = rowToColor((await DB.insertPalette(slot, [{ name, hex, sort_order: list.length }]))[0]);
+    setSlotPal(slot, [...list, item], true);
+  });
+  const updateColor = (slot, idx, { name, hex }) => palOp(async () => {
+    const list = await materialize(slot);
+    if (uid) await DB.updatePalette(list[idx].id, { name, hex });
+    setSlotPal(slot, list.map((c, i) => (i === idx ? { ...c, name, hex } : c)), true);
+  });
+  const removeColors = (slot, idxs) => palOp(async () => {
+    const list = await materialize(slot);
+    const next = list.filter((_, i) => !idxs.includes(i));
+    if (uid) {
+      await DB.deletePaletteMany(idxs.map((i) => list[i].id));
+      if (!next.length) await DB.insertPalette(slot, [{ name: EMPTY_MARK, hex: "#000000", sort_order: 0 }]);
+    }
+    setSlotPal(slot, next, true);
+    if (idxs.length > 1) showToast(tr("{n} colors deleted", { n: idxs.length }));
+  });
+  const removeColor = (slot, idx) => removeColors(slot, [idx]);
+  const resetPalette = (slot) => palOp(async () => {
+    if (uid && palState.custom[slot]) await DB.resetPalette(uid, slot);
+    setSlotPal(slot, defaultPalette(), false);
+    showToast(tr("Palette restored to default"));
+  });
+  const openEdit = (i) => {
+    if (sb && !uid) { showToast(tr("Sign in first to create your own color palette")); setAuthOpen(true); return; }
+    setEditSlot(i);
+  };
+
+  /* Riwayat perubahan warna (undo / redo), animasi acak tidak ikut tercatat */
+  useEffect(() => {
+    if (shuffling) return;
+    if (skipRef.current) { skipRef.current = false; lastRef.current = hexes; return; }
+    if (lastRef.current.join() === hexes.join()) return;
+    const prev = lastRef.current;
+    setHistory((h) => ({ past: [...h.past.slice(-29), prev], future: [] }));
+    lastRef.current = hexes;
+  }, [hexes, shuffling]);
+  const undo = () => {
+    if (!history.past.length) return;
+    const prev = history.past[history.past.length - 1];
+    skipRef.current = true;
+    setHistory({ past: history.past.slice(0, -1), future: [hexes, ...history.future] });
+    setHexes(prev);
+  };
+  const redo = () => {
+    if (!history.future.length) return;
+    const next = history.future[0];
+    skipRef.current = true;
+    setHistory({ past: [...history.past, hexes], future: history.future.slice(1) });
+    setHexes(next);
+  };
+
+  const surprise = () => {
+    if (shuffling) return;
+    if (locks.every(Boolean)) return showToast(tr("All slots are locked. Unlock one first 🔓"));
+    setShuffling(true);
+    const final = randomOutfit(hexes, locks, palArrays);
+    let tick = 0;
+    const iv = setInterval(() => {
+      if (++tick >= 9) { clearInterval(iv); setHexes(final); setShuffling(false); return; }
+      setHexes((p) => p.map((h, i) => (locks[i] ? h : randFrom(palArrays[i]))));
+    }, 75);
+  };
+
+  const save = async () => {
+    const item = { id: Date.now().toString(36), colors: hexes, score: an.score, vibe, tag: null, date: fmtDate(new Date()), ts: Date.now() };
+    if (uid) {
+      try { const it = await DB.addOutfit(item); setWardrobe((w) => [it, ...w]); showToast(tr("Outfit saved to your account ✨")); }
+      catch (e) { showToast(tr("Failed to save: {msg}", { msg: e.message })); }
+    } else { commitLocal([item, ...wardrobe]); showToast(tr("Outfit saved to your wardrobe ✨")); }
+  };
+
+  const removeOutfit = async (id) => {
+    if (!uid) return commitLocal(wardrobe.filter((x) => x.id !== id));
+    try { await DB.removeOutfit(id); setWardrobe((w) => w.filter((x) => x.id !== id)); }
+    catch (e) { showToast(tr("Failed to delete: {msg}", { msg: e.message })); }
+  };
+
+  const removeOutfits = async (ids) => {
+    if (!uid) { commitLocal(wardrobe.filter((x) => !ids.includes(x.id))); showToast(tr("{n} outfits deleted", { n: ids.length })); return true; }
+    try { await DB.removeOutfits(ids); setWardrobe((w) => w.filter((x) => !ids.includes(x.id))); showToast(tr("{n} outfits deleted", { n: ids.length })); return true; }
+    catch (e) { showToast(tr("Failed to delete: {msg}", { msg: e.message })); return false; }
+  };
+
+  const tagOutfit = async (id, tag) => {
+    const next = wardrobe.map((x) => (x.id === id ? { ...x, tag } : x));
+    if (!uid) return commitLocal(next);
+    const prev = wardrobe; setWardrobe(next);
+    try { await DB.setTag(id, tag); } catch (e) { setWardrobe(prev); showToast(tr("Failed to change tag: {msg}", { msg: e.message })); }
+  };
+
+  const useAgain = (it) => {
+    setHexes(it.colors); setLocks([false, false, false]); setTab("lab");
+    showToast(tr("Outfit loaded into Mix Lab"));
+  };
+
+  const saveDefaults = async () => {
+    try { await DB.saveDefaults(uid, hexes); setDefaults([...hexes]); showToast(tr("Default colors saved to your account")); }
+    catch (e) { showToast(tr("Failed to save defaults: {msg}", { msg: e.message })); }
+  };
+  const resetDefaults = async () => {
+    try { await DB.resetDefaults(uid); setDefaults(null); setHexes(DEFAULT_HEX); showToast(tr("Back to the default colors")); }
+    catch (e) { showToast(tr("Failed to reset: {msg}", { msg: e.message })); }
+  };
+  const signOut = async () => { await sb.auth.signOut(); setAuthOpen(false); showToast(tr("You've signed out")); };
+
+  const initial = user ? (((user.user_metadata && (user.user_metadata.full_name || user.user_metadata.name)) || user.email || "?")[0] || "?").toUpperCase() : null;
+
+  return (
+    <div className="mx-auto min-h-screen max-w-xl text-stone-800" style={{ fontFamily: "'Nunito', ui-sans-serif, system-ui, 'Segoe UI', sans-serif" }}>
+      <header className="px-4 pt-3">
+        <div className="flex items-center justify-between gap-2">
+          <h1 className="font-display text-[21px] font-bold leading-tight tracking-tight text-stone-800">PaduPadan <span className="italic text-rose-500">for Hijabi</span></h1>
+          <div className="flex shrink-0 items-center gap-1.5">
+            <button onClick={toggleLang} aria-label={tr("Language: {lang}. Tap to switch.", { lang: lang === "en" ? "English" : "Bahasa Indonesia" })} title={lang === "en" ? "English" : "Bahasa Indonesia"}
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-stone-200/70 text-xs font-extrabold tracking-wide text-stone-600 transition active:scale-90">
+              {lang.toUpperCase()}
+            </button>
+            <button onClick={cycleTheme} aria-label={tr("Theme: {mode}. Tap to change", { mode: tr({ auto: "automatic", light: "light", dark: "dark" }[theme]) })} title={tr("Change theme")}
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-stone-200/70 text-stone-600 transition active:scale-90">
+              <Icon name={{ auto: "monitor", light: "sun", dark: "moon" }[theme]} size={17} />
+            </button>
+            <button onClick={() => setAuthOpen(true)} aria-label={user ? tr("My account") : tr("Sign in")}
+              className={`flex h-10 w-10 items-center justify-center rounded-full text-sm font-extrabold transition active:scale-90 ${syncing ? "animate-pulse" : ""} ${user ? "bg-rose-500 text-white" : "bg-stone-200/70 text-stone-600"}`}>
+              {user ? initial : <Icon name="user" size={16} />}
+            </button>
+          </div>
+        </div>
+      </header>
+      <div className="sticky top-0 z-20 bg-[#fcf5f5]/90 px-4 pb-2 pt-2 backdrop-blur">
+        <nav className="grid grid-cols-2 gap-1 rounded-2xl bg-stone-200/70 p-1">
+          {[["lab", "Mix Lab", "palette"], ["wardrobe", `${tr("Wardrobe")}${wardrobe.length ? ` (${wardrobe.length})` : ""}`, "archive"]].map(([k, l, ic]) => (
+            <button key={k} onClick={() => setTab(k)} aria-current={tab === k ? "page" : undefined}
+              className={`flex h-10 items-center justify-center gap-2 rounded-xl text-sm font-bold transition ${tab === k ? "bg-white text-stone-900 shadow" : "text-stone-500"}`}>
+              <Icon name={ic} size={16} /> {l}
+            </button>
+          ))}
+        </nav>
+      </div>
+
+      <main className="px-4 pb-10 pt-2" style={{ paddingBottom: "max(2.5rem, env(safe-area-inset-bottom))" }}>
+        {tab === "lab" ? (
+          <div className="slide-up">
+            {/* Ringkasan: manekin + skor + aksi utama dalam satu layar */}
+            <section className="flex gap-3 rounded-3xl bg-white p-3 shadow-sm ring-1 ring-stone-200">
+              <div className="relative w-[128px] shrink-0 rounded-2xl bg-[#f7e8ec] p-1.5 min-[400px]:w-[150px]" style={{ height: 292 }}>
+                <Mannequin hexes={hexes} active={active} onSelect={setActive} />
+                <div className="absolute right-1.5 top-1.5 flex flex-col gap-1.5">
+                  <button onClick={undo} disabled={!history.past.length} aria-label={tr("Undo color change")} title={tr("Undo")}
+                    className="flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-stone-700 shadow-sm ring-1 ring-stone-200 transition active:scale-90 disabled:opacity-35"><Icon name="undo" size={15} /></button>
+                  <button onClick={redo} disabled={!history.future.length} aria-label={tr("Redo color change")} title={tr("Redo")}
+                    className="flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-stone-700 shadow-sm ring-1 ring-stone-200 transition active:scale-90 disabled:opacity-35"><Icon name="redo" size={15} /></button>
+                </div>
+              </div>
+              <div className="flex min-w-0 flex-1 flex-col">
+                <div className="flex items-center gap-2.5">
+                  <ScoreRing score={an.score} />
+                  <div className="min-w-0">
+                    <p className="text-[11px] font-semibold uppercase tracking-wide text-stone-400">{tr("Match score")}</p>
+                    <p className="truncate text-base font-extrabold leading-tight">{vibeText(vibe)}</p>
+                  </div>
+                </div>
+                <span className="mt-2 self-start rounded-full px-2.5 py-0.5 text-[11px] font-bold transition-colors" style={{ color: tone.c, backgroundColor: tone.bg }}>{tone.t}</span>
+                <p className="mt-2 border-l-4 pl-2.5 text-xs leading-relaxed text-stone-600 transition-colors" style={{ borderColor: tone.c }}>{tip}</p>
+                {fixes[0] && (
+                  <button onClick={() => { setColor(fixes[0].slot, fixes[0].color.hex); setActive(fixes[0].slot); showToast(tr("{slot} changed to {color}", { slot: SLOTS[fixes[0].slot].short, color: fixes[0].color.name })); }}
+                    className="mt-2 flex items-center gap-2 self-start rounded-2xl bg-stone-50 py-1 pl-1 pr-2.5 text-[11px] font-bold ring-1 ring-stone-200 transition active:scale-95">
+                    <span className="h-5 w-5 rounded-full ring-1 ring-black/10" style={{ backgroundColor: fixes[0].color.hex }} />
+                    <span className="truncate">{SLOTS[fixes[0].slot].short} → {fixes[0].color.name}</span>
+                    <span className="text-green-600">+{fixes[0].gain}%</span>
+                  </button>
+                )}
+                <div className="mt-auto flex gap-2 pt-3">
+                  <button onClick={surprise} disabled={shuffling}
+                    className="flex h-11 flex-1 items-center justify-center gap-1.5 rounded-2xl bg-rose-500 hover:bg-rose-600 text-sm font-extrabold text-white shadow-md transition active:scale-95 disabled:opacity-70">
+                    <span className={shuffling ? "spin-once" : ""}><Icon name="sparkles" size={17} /></span> {tr("Surprise")}
+                  </button>
+                  <button onClick={save} aria-label={tr("Save outfit to wardrobe")} title={tr("Save to wardrobe")}
+                    className="flex h-11 w-11 items-center justify-center rounded-2xl bg-stone-900 text-white transition active:scale-95"><Icon name="save" size={17} /></button>
+                </div>
+              </div>
+            </section>
+
+            <div className="mb-2 mt-4 flex items-center justify-between">
+              <h2 className="text-sm font-extrabold">{tr("Adjust colors")}</h2>
+              <button onClick={() => setScanOpen(true)} className="flex items-center gap-1.5 rounded-xl bg-rose-50 px-3 py-2 text-xs font-bold text-rose-600 ring-1 ring-rose-100 transition active:scale-95">
+                <Icon name="camera" size={14} /> {tr("Scan from photo")}
+              </button>
+            </div>
+            <div className="flex flex-col gap-2">
+              {SLOTS.map((s, i) => (
+                <SlotCard key={s.key} slot={s} hex={hexes[i]} palette={palState.pal[s.key]} onEdit={() => openEdit(i)} locked={locks[i]} active={active === i}
+                  onSelect={() => setActive(i)} onPick={(h) => setColor(i, h)} onToggleLock={() => toggleLock(i)} />
+              ))}
+            </div>
+
+            <Accordion title={tr("Score details")} summary={`${an.score}% · ${tone.t}`}>
+              <ScoreBreakdown an={an} fixes={fixes} notes={getNotes(an, hexes)} allLocked={locks.every(Boolean)}
+                onApply={(i, hex) => { setColor(i, hex); setActive(i); showToast(tr("{slot} changed to {color}", { slot: SLOTS[i].short, color: colorName(hex) })); }} />
+            </Accordion>
+            <Accordion title={tr("Default colors")} summary={defaults ? tr("Yours") : tr("Built-in")}>
+              <DefaultsCard user={user} defaults={defaults} onSave={saveDefaults} onLogin={() => setAuthOpen(true)}
+                onApply={() => { setHexes(defaults || DEFAULT_HEX); setLocks([false, false, false]); }} onReset={resetDefaults} />
+            </Accordion>
+          </div>
+        ) : (
+          <>
+            {sb && !user && (
+              <div className="mb-3 flex items-center justify-between gap-3 rounded-2xl bg-white p-3 text-xs ring-1 ring-stone-200">
+                <span className="text-stone-600">{tr("Sign in so your wardrobe is saved to your account and follows you across devices.")}</span>
+                <button onClick={() => setAuthOpen(true)} className="shrink-0 rounded-xl bg-stone-900 px-3 py-2 font-bold text-white">{tr("Sign in")}</button>
+              </div>
+            )}
+            <Wardrobe items={wardrobe} onUse={useAgain} onDelete={removeOutfit} onDeleteMany={removeOutfits} onTag={tagOutfit} />
+          </>
+        )}
+      </main>
+
+      <ScanModal open={scanOpen} onClose={() => setScanOpen(false)} locks={locks} initialSlot={active}
+        onApply={(i, hex) => { setColor(i, hex); setActive(i); showToast(tr("Color {hex} applied to {slot}", { hex, slot: SLOTS[i].short })); }} />
+      {editSlot !== null && (
+        <PaletteModal slot={SLOTS[editSlot]} list={palState.pal[SLOTS[editSlot].key]} isCustom={!!palState.custom[SLOTS[editSlot].key]}
+          onClose={() => setEditSlot(null)}
+          onAdd={(c) => addColor(SLOTS[editSlot].key, c)} onUpdate={(i, c) => updateColor(SLOTS[editSlot].key, i, c)}
+          onRemove={(i) => removeColor(SLOTS[editSlot].key, i)} onRemoveMany={(idxs) => removeColors(SLOTS[editSlot].key, idxs)} onReset={() => resetPalette(SLOTS[editSlot].key)} />
+      )}
+      <AuthModal open={authOpen} onClose={() => setAuthOpen(false)} user={user} onSignOut={signOut} />
+
+      {toast && <div className="slide-up fixed left-1/2 top-16 z-[60] max-w-[92vw] -translate-x-1/2 rounded-full bg-stone-900 px-4 py-2 text-center text-sm font-semibold text-white shadow-lg">{toast}</div>}
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>
