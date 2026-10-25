@@ -8,7 +8,7 @@
 
 > An intelligent, web-based OOTD (Outfit of the Day) color matching simulator tailored for hijabi fashion. Powered by CIEDE2000 color science evaluation, interactive mannequin previews, photo color scanning, digital wardrobe management, and cross-device cloud sync.
 
-🌐 **Live Demo:** padupadan-for-hijabi.netlify.app
+🌐 **Live Demo:**  https://padupadan-for-hijabi.netlify.app
 
 ---
 
